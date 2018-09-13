@@ -1,0 +1,198 @@
+body{
+	margin: 0;
+  background-color: #333!important;
+}
+
+.tailWrapper{
+	padding: 1px;
+	display: inline-block;
+	float:left;
+}
+.m-0{
+  margin: 0!important;
+}
+.p-0{
+  padding: 0!important;
+}
+.tail,
+.tail-start{
+display: inline-block;
+width: 44px;
+height: 44px;
+background-color: #CC751F;
+border-radius: 8px;
+cursor: pointer;
+    border: 3px solid #CC751F;
+    box-sizing: content-box;
+}
+.tail-start{
+   border: 3px solid #FFDC33;
+ background-color: #FFDC33;
+}
+.tail-start:hover{
+ border: 3px solid #CC751F;
+}
+.playStart-top{
+  position: absolute;
+  left: 208px;
+  transition: 1s all;
+}
+.playStart-bottom{
+  left: 208px;
+   position: absolute;
+   bottom: 0;
+   transition: 1s all;
+}
+.playStart-left{
+      display: inline-block;
+    width: 52px;
+    position: absolute;
+    top: 208px;
+    left: 0;
+    transition: 1s all;
+}
+.playStart-right{
+      display: inline-block;
+    width: 52px;
+    position: absolute;
+    top: 208px;
+    right: 0;
+    transition: 1s all;
+}
+.tail.turnover{
+	 background-image: url('../img/one.png');
+   background-position: 0px 0px;
+  background-size:88px 88px;
+}
+.tail.turnover.tail-two{
+   background-position:44px 0px;
+}
+.tail.turnover.tail-three{
+   background-position:0px 44px;
+}
+.tail.turnover.tail-jail{
+   background-position:44px 44px;
+}
+
+#playingField{
+	display: inline-block;
+	position: relative;
+	width: 520px;
+	font-size: 0px;
+	height: 520px;
+  left: 52px;
+  top: 52px;
+  position: absolute;
+  pointer-events: none;
+  transition: 1s all;
+}
+#playingField.playingFieldDis{
+opacity: 0.5;
+
+}
+#playingField .tailWrapper .tail.allowed{
+  border-color:green;
+   pointer-events: all;
+}
+#playingField .center{
+	    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 104px;
+    height: 104px;
+    background: #556B2F;
+    border-radius: 8px;
+}
+
+
+#playStart{
+  display: inline-block;
+  position: relative;
+  width: 624px;
+  font-size: 0px;
+  height: 624px;
+}
+
+#infogame{
+  color: #fff;
+}
+#infogame .infogame-but button{
+  font-size: 20px;
+  padding: 12px;
+  background: green;
+  transition: 1s all;
+}
+button.button-hidden{
+  pointer-events: none;
+  opacity: 0;
+}
+.tour{
+display: inline-block;
+width: 94px;
+height: 94px;
+background-image: url('../img/tourist.jpeg');
+border-radius: 8px;
+    border: 3px solid #CC751F;
+    box-sizing: content-box;
+     background-position: 0px 0px;
+  background-size:376px 94px;
+}
+.tour.three{
+     background-position: 94px 0px;
+}
+.tour.two{
+     background-position: 188px 0px;
+}
+.tour.four{
+     background-position: 282px 0px;
+}
+.tourWrapper{
+  padding: 4px;
+  display: inline-block;
+}
+#playStart .tourWrapper{
+  position: absolute;
+  padding: 0;
+}
+
+#playStart .tourWrapper .tour{
+  display: inline-block;
+width: 44px;
+height: 44px;
+border-radius: 8px;
+pointer-events: none;
+cursor: pointer;
+    border: 3px solid #CC751F;
+    box-sizing: content-box;
+   background-image: url('../img/tourist.jpeg');
+border-radius: 8px;
+    border: 3px solid #CC751F;
+    box-sizing: content-box;
+     background-position: 0px 0px;
+  background-size:176px 44px;
+}
+#playStart .tourWrapper.active .tour.active{
+    border-color:green;
+}
+#playStart .tourWrapper.active .tour.player-in-jail{
+    border-color:red;
+}
+#playStart .tourWrapper.active .tour{
+    pointer-events: all;
+}
+#playStart .tourWrapper.active{
+    z-index: 1;
+    transition: 0.3s all;
+}
+#playStart .tourWrapper .tour.three{
+     background-position: 44px 0px;
+}
+#playStart .tourWrapper .tour.two{
+     background-position: 88px 0px;
+}
+#playStart .tourWrapper .tour.four{
+     background-position: 132px 44px;
+}
+
