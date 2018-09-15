@@ -89,6 +89,7 @@ function restartPosTour() {
 		buttonStart.text("НАЧАТЬ ЗАНОВО")
 		buttonStart.appendTo('#infogame .infogame-but');
 		 $("#playStart").attr('style','opacity:0;pointer-events:none;');
+		 $("#inCountry .tourWrapper").remove();
 		$("#playingField").attr('style','opacity:0;pointer-events:none;');
 }
 startPosTour();
@@ -127,7 +128,7 @@ $(document).on('click ', '.tail-start', function () {
 
 
 	$(document).on('click ', '#playStart .tourWrapper.active .tour:not(.player-in-jail)', function () {
-		tourView ="";
+		
 		if(!$(this).hasClass("onField")){
 			stepcount = 1;
 			$(this).attr('data-step',stepcount);
@@ -217,7 +218,14 @@ var tourView = "";
 
 	        	jailcount++;
 	        	if(jailcount<4){
-	        		$('#infogame h2').text('Путешественник попал в тюрьму и пока ходить не может. Встаньте другим путешественником на его квадрат, чтобы освободить его.');
+	        		if(jailcount+incountrytcount==4){
+	        			$('#infogame h2').text('Верните из страны одного путешественника, чтобы освободить другого из тюрьмы. Кликните по путешевтвеннику, который уже в стране.');
+	        		}
+	        		else{
+	        			$('#infogame h2').text('Путешественник попал в тюрьму и пока ходить не может. Встаньте другим путешественником на его квадрат, чтобы освободить его.');
+	        		}
+	        		
+
 	        	}
 	        	else{
 	        		jailcount=0;
@@ -288,7 +296,13 @@ $(document).on('click ', '#playingField .tailWrapper.center .tail.allowed', func
 								}, 2000);
 			$('#playStart .tourWrapper.active .tour.active').parent().attr('style','opacity:0;pointer-events:none;left:'+($(this).offset().left-$("#playStart").offset().left+26)+'px;top:'+($(this).offset().top-$("#playStart").offset().top+26)+'px;transition: 2s all;');
 	if(incountrytcount<4){
-			$('#infogame h2').text('Поздравляем! Ваш турист добрался до страны! Не забудьте про остальных!');
+		if(jailcount+incountrytcount==4){
+	        			$('#infogame h2').text('Верните из страны одного путешественника, чтобы освободить другого из тюрьмы. Кликните по путешевтвеннику, который уже в стране.');
+	        		}
+	        		else{
+	        			$('#infogame h2').text('Поздравляем! Ваш турист добрался до страны! Не забудьте про остальных!');
+	        		}
+			
 	}
 	else{
 		incountrytcount=0;
@@ -336,7 +350,21 @@ $(document).on('click ', '#button-restart', function () {
 	    });	
 
 	$(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', function () {
-		tourView ="";
+
+		if(!tourView==""){
+				$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').addClass('active');
+				$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').removeClass('incountry');
+				incountrytcount--;
+				$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').parent().css('opacity',1);
+				$('#inCountry .tourWrapper.active .tour[data-view="'+tourView+'"]').parent().attr('style','opacity:0;pointer-events:none; ');
+				setTimeout(function() {	$('#inCountry .tourWrapper.active .tour[data-view="'+tourView+'"]').parent().remove();
+					$('#playStart .tourWrapper.active  .tour[data-view="'+tourView+'"]').parent().css('transition','0.3s all');
+					tourView ="";
+								}, 1900); 
+				$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').attr('data-step',1);
+
+		}
+		
 		stepcount = $('#playStart .tourWrapper.active .tour.active').attr('data-step');
 		stepcount--;
 		console.log(stepcount);
@@ -348,10 +376,24 @@ $(document).on('click ', '#button-restart', function () {
 	     var rightPlayerJail = $(this).parent().offset().left+52;
 	     var bottomPlayerJail = $(this).parent().offset().top+52;
 	    console.log(topPlayerJail+'---'+leftPlayerJail+'---'+rightPlayerJail+'---'+bottomPlayerJail);
-	     	$("#playStart .tourWrapper.active .tour:not(.player-in-jail-now)").each(function () {
+	    if(!tourView==""){
+	    	jailcount--;
+				        $('#playStart .tourWrapper.active .tour.active').parent().css({left:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().left,top:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().top});
+					      $('#playStart .tourWrapper.active .tour').removeClass("active");
+					      $('#inCountry .tourWrapper.active .tour').removeClass("active");
+						$('#playingField .tailWrapper .tail').removeClass("allowed");
+						$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').addClass("active");
+						$('#playStart .tourWrapper.active .tour.active').attr('data-step',1);
+						 $('#playStart .tourWrapper.active .tour.active').removeClass("player-in-jail");
+						$('#playStart .tourWrapper.active .tour.active').removeClass("player-in-jail-now");
+						$('#playStart .tourWrapper .tour.active').click();
+						$('#playStart .tourWrapper .tour.active').parent().css('z-index',2);
+	    }
+	    else{
+	    	$("#playStart .tourWrapper.active .tour:not(.player-in-jail-now)").each(function () {
 	     		console.log($(this).parent().offset().top+'---'+$(this).offset().left);
 	     	    if($(this).parent().offset().top == bottomPlayerJail && $(this).offset().left == leftPlayerJail ||$(this).parent().offset().top+52 == topPlayerJail && $(this).parent().offset().left == leftPlayerJail||$(this).parent().offset().top == topPlayerJail && $(this).parent().offset().left == rightPlayerJail ||$(this).parent().offset().top == topPlayerJail && $(this).parent().offset().left+52 == leftPlayerJail){
-	     	    	
+	     	    	jailcount--;
 				        $('#playStart .tourWrapper.active .tour.active').parent().css({left:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().left,top:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().top});
 					      $('#playStart .tourWrapper.active .tour').removeClass("active");
 					      $('#inCountry .tourWrapper.active .tour').removeClass("active");
@@ -364,8 +406,10 @@ $(document).on('click ', '#button-restart', function () {
 						$('#playStart .tourWrapper .tour.active').parent().css('z-index',2);
 	     	    }
 		    });
+	    }
+	     	
 		}
-
+		
 		
 
 	})
