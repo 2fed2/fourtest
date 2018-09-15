@@ -1,8 +1,8 @@
 jQuery(document).ready(function($) {
-	var tailOne = 24;
-	var tailTwo = 22;
-	var tailThree = 22;
-	var tailJail = 4;
+	var tailOne = 19;
+	var tailTwo = 17;
+	var tailThree = 17;
+	var tailJail = 19;
 	var randomSummCount = tailOne + tailTwo + tailThree + tailJail;
 	var randomCount = [];
 	for (var i = 0; i < randomSummCount; i++) {
