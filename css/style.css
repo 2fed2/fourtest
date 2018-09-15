@@ -3,7 +3,7 @@ body{
   background-color: #333!important;
 }
 
-.tailWrapper{
+.tailWrapper:not(.center){
 	padding: 1px;
 	display: inline-block;
 	float:left;
@@ -28,6 +28,10 @@ cursor: pointer;
 .tail-start{
    border: 3px solid #FFDC33;
  background-color: #FFDC33;
+}
+.tail-start.selected{
+ opacity:0;
+ pointer-events:none;
 }
 .tail-start:hover{
  border: 3px solid #CC751F;
@@ -75,16 +79,19 @@ cursor: pointer;
 }
 
 #playingField{
-	display: inline-block;
-	position: relative;
-	width: 520px;
-	font-size: 0px;
-	height: 520px;
-  left: 52px;
-  top: 52px;
-  position: absolute;
-  pointer-events: none;
-  transition: 1s all;
+display: inline-block;
+    position: relative;
+    width: 520px;
+    font-size: 0px;
+    height: 520px;
+    /* left: 52px; */
+    /* top: 52px; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    pointer-events: none;
+    transition: 1s all;
 }
 #playingField.playingFieldDis{
 opacity: 0.5;
@@ -94,16 +101,34 @@ opacity: 0.5;
   border-color:green;
    pointer-events: all;
 }
-#playingField .center{
+#playingField .tailWrapper.center .tail.allowed{
+  border-color:green;
+   pointer-events: all;
+}
+#playingField .tailWrapper.center .tail.allowedCountry{
+  border-color:green;
+   pointer-events: all;
+}
+#playingField .tailWrapper.center{
 	    display: inline-block;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
     width: 104px;
     height: 104px;
+}
+#playingField .tailWrapper.center .tail{
+	display: inline-block;
+	width: 100%;
+    height: 100%;
     background: #556B2F;
+    box-sizing: border-box;
     border-radius: 8px;
+        border-radius: 8px;
+    border: 3px solid #556B2F;
+    cursor: pointer;
 }
 
 
@@ -138,14 +163,32 @@ border-radius: 8px;
     box-sizing: content-box;
      background-position: 0px 0px;
   background-size:376px 94px;
+  position: relative;
 }
-.tour.three{
+.tour::before{
+	content: "";
+	left:0;
+	top:0;
+position: absolute;
+display: inline-block;
+background-image: url('../img/jail.png');
+width: 44px;
+height: 0px;
+ background-position: center;
+  background-repeat: no-repeat;
+ background-size: 100% 100%;
+transition: 1.5s all;
+}
+.tour.player-in-jail::before{
+height: 44px;
+}
+.tour[data-view='three']{
      background-position: 94px 0px;
 }
-.tour.two{
+.tour[data-view='two']{
      background-position: 188px 0px;
 }
-.tour.four{
+.tour[data-view='four']{
      background-position: 282px 0px;
 }
 .tourWrapper{
@@ -157,7 +200,8 @@ border-radius: 8px;
   padding: 0;
 }
 
-#playStart .tourWrapper .tour{
+#playStart .tourWrapper .tour,
+#inCountry .tourWrapper .tour{
   display: inline-block;
 width: 44px;
 height: 44px;
@@ -173,26 +217,59 @@ border-radius: 8px;
      background-position: 0px 0px;
   background-size:176px 44px;
 }
-#playStart .tourWrapper.active .tour.active{
+#playStart .tourWrapper.active .tour.active,
+#inCountry .tourWrapper.active .tour.active{
     border-color:green;
 }
 #playStart .tourWrapper.active .tour.player-in-jail{
     border-color:red;
 }
-#playStart .tourWrapper.active .tour{
+#playStart .tourWrapper.active .tour,
+#inCountry .tourWrapper.active .tour{
     pointer-events: all;
+}
+#playStart .tourWrapper.active .tour.incountry{
+    pointer-events: none;
 }
 #playStart .tourWrapper.active{
     z-index: 1;
     transition: 0.3s all;
 }
-#playStart .tourWrapper .tour.three{
+#playStart .tourWrapper .tour[data-view='three'],
+#inCountry .tourWrapper .tour[data-view='three']{
      background-position: 44px 0px;
 }
-#playStart .tourWrapper .tour.two{
+#playStart .tourWrapper .tour[data-view='two'],
+#inCountry .tourWrapper .tour[data-view='two']{
      background-position: 88px 0px;
 }
-#playStart .tourWrapper .tour.four{
+#playStart .tourWrapper .tour[data-view='four'],
+#inCountry .tourWrapper .tour[data-view='four']{
      background-position: 132px 44px;
 }
 
+.col-lg-6:first-child{
+      font-size: 0;
+    text-align: center;
+    margin-top: 50px!important;
+}
+
+#inCountry{
+    position: absolute;
+    display: inline-block;
+    height: 134px;
+    width: 134px;
+    background-image: url(../img/house.png);
+    left: 50px;
+    bottom: 0;
+    background-size: contain;
+    padding: 5px;
+
+}
+
+#inCountry .tourWrapper{
+	float: left;
+	padding: 5px;
+	opacity: 0;
+	transition: 2s all;
+}
