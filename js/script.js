@@ -1,8 +1,8 @@
 jQuery(document).ready(function($) {
-	var tailOne = 24;
-	var tailTwo = 22;
-	var tailThree = 22;
-	var tailJail = 4;
+	var tailOne = 19;
+	var tailTwo = 17;
+	var tailThree = 17;
+	var tailJail = 19;
 	var randomSummCount = tailOne + tailTwo + tailThree + tailJail;
 	var randomCount = [];
 	for (var i = 0; i < randomSummCount; i++) {
@@ -363,7 +363,7 @@ $(document).on('click ', '#button-restart', function () {
 		}
 		
 		stepcount = $('#playStart .tourWrapper.active .tour.active').attr('data-step');
-		stepcount--;
+		
 		console.log(stepcount);
 		if (stepcount == 0){
 			$('#playStart .tourWrapper.active .tour').removeClass("player-in-jail-now");
@@ -388,6 +388,7 @@ $(document).on('click ', '#button-restart', function () {
 	    }
 	    else{
 	    	$("#playStart .tourWrapper.active .tour:not(.player-in-jail-now)").each(function () {
+	    		stepcount--;
 	     		console.log($(this).parent().offset().top+'---'+$(this).offset().left);
 	     	    if($(this).parent().offset().top == bottomPlayerJail && $(this).offset().left == leftPlayerJail ||$(this).parent().offset().top+52 == topPlayerJail && $(this).parent().offset().left == leftPlayerJail||$(this).parent().offset().top == topPlayerJail && $(this).parent().offset().left == rightPlayerJail ||$(this).parent().offset().top == topPlayerJail && $(this).parent().offset().left+52 == leftPlayerJail){
 	     	    	jailcount--;
