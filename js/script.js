@@ -1,8 +1,8 @@
 jQuery(document).ready(function($) {
-	var tailOne = 19;
-	var tailTwo = 17;
-	var tailThree = 17;
-	var tailJail = 19;
+	var tailOne = 24;
+	var tailTwo = 22;
+	var tailThree = 22;
+	var tailJail = 4;
 	var randomSummCount = tailOne + tailTwo + tailThree + tailJail;
 	var randomCount = [];
 	for (var i = 0; i < randomSummCount; i++) {
@@ -133,21 +133,18 @@ $(document).on('click ', '.tail-start', function () {
 			stepcount = 1;
 			$(this).attr('data-step',stepcount);
         	$('#infogame h2').text('Сделайте первый ход на квадрат в зеленой рамке.');
+        	$(this).addClass("onField");
         }
 		$('#playStart .tourWrapper.active .tour').removeClass("active");
 		$('#inCountry .tourWrapper.active .tour').removeClass("active");
 		$('#playingField .tailWrapper .tail').removeClass("allowed");
-		$(this).addClass("onField");
+		
 	     $(this).addClass("active");
-
-	     
 
 	     var topPlayer = $(this).parent().offset().top-1;
 	     var leftPlayer = $(this).parent().offset().left-1;
 	     var rightPlayer = $(this).parent().offset().left+51;
 	     var bottomPlayer = $(this).parent().offset().top+51;
-	    console.log($("#playingField .tailWrapper.center").offset().top +"ЦЕНТР=--="+$("#playingField .tailWrapper.center").offset().left);
-	    console.log(topPlayer+"=--="+leftPlayer+"=--="+rightPlayer+"=--="+bottomPlayer);
 	     	$("#playingField .tailWrapper").each(function () {
 	     		
 	     		if(!$(this).hasClass("center")){
@@ -408,6 +405,9 @@ $(document).on('click ', '#button-restart', function () {
 		    });
 	    }
 	     	
+		}
+		else{
+			$('#infogame h2').text('Из тюрьмы можно освободить, только встав на эту клетку последним ходом туриста. (перед тем как встать на квадрат, у туриста должен оставаться один ход)');
 		}
 		
 		
