@@ -199,7 +199,20 @@ height: 44px;
   position: absolute;
   padding: 0;
 }
-
+#playStart .tourWrapper .tour span{
+    font-size: 12px;
+    color: #FF6800;
+    background: #000;
+    border-radius: 50%;
+    padding: 2px 3px;
+    position: absolute;
+    right: -7px;
+    top: -9px;
+    display: none;
+}
+#playStart .tourWrapper.active .tour span{
+       display: inline;
+}
 #playStart .tourWrapper .tour,
 #inCountry .tourWrapper .tour{
   display: inline-block;
