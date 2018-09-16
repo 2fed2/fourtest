@@ -78,7 +78,9 @@ var tourist = ['one','two','three','four'];
 for (var i = 0; i < tourist.length; i++) {
    		var imgTour = $('<div class="tourWrapper">');
 		var tour = $('<div class="tour">');
+		var step = $('<span>');
 		tour.attr('data-view',tourist[i]);
+		step.appendTo(tour);	
 		tour.appendTo(imgTour);	
 		imgTour.appendTo('#infogame .infogame-pic');
 		}
@@ -123,6 +125,11 @@ $(document).on('click ', '.tail-start', function () {
 	      $(this).remove();
 	      $("#playStart .tourWrapper").addClass("active");
 	      $('#infogame h2').text('Выберите путешественника и ходите на выделенное поле.');
+	      $("#playStart .tourWrapper.active .tour:not(.player-in-jail)").each(function () {
+					stepcount = 1;
+					$(this).attr('data-step',stepcount);
+					$(this).find("span").text("+"+stepcount);	
+				})
 	    });	
 
 
@@ -130,9 +137,7 @@ $(document).on('click ', '.tail-start', function () {
 	$(document).on('click ', '#playStart .tourWrapper.active .tour:not(.player-in-jail)', function () {
 		
 		if(!$(this).hasClass("onField")){
-			stepcount = 1;
-			$(this).attr('data-step',stepcount);
-        	$('#infogame h2').text('Сделайте первый ход на квадрат в зеленой рамке.');
+			$('#infogame h2').text('Сделайте первый ход на квадрат в зеленой рамке.');
         	$(this).addClass("onField");
         }
 		$('#playStart .tourWrapper.active .tour').removeClass("active");
@@ -190,9 +195,11 @@ var tourView = "";
 		}
 		stepcount = $('#playStart .tourWrapper.active .tour.active').attr('data-step');
 		$('#playStart .tourWrapper').css("z-index",1);
+
 	stepcount--;
 	
 	$('#playStart .tourWrapper.active .tour.active').attr('data-step',stepcount);
+$('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount);
 		if (stepcount == 0){
 			$(this).addClass('turnover');
 	        $(this).addClass(classTail[$(this).parent().index()-1]);
@@ -200,16 +207,19 @@ var tourView = "";
 	        	$('#infogame h2').text('Путешественник может пройти 1 квадрат.');
 	        	stepcount = 1;
 	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',stepcount);
+	        	$('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount);
 	        }
 	        if($(this).hasClass("tail-two")){
 	        	$('#infogame h2').text('Путешественник может пройти 2 квадрата.');
 	        	stepcount = 2;
 	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',stepcount);
+	        	$('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount);
 	        }
 	        if($(this).hasClass("tail-three")){
 	        	$('#infogame h2').text('Путешественник может пройти 3 квадрата.');
 	        	stepcount = 3;
 	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',stepcount);
+	        	$('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount);
 	        }
 	        if($(this).hasClass("tail-jail")){
 
@@ -241,6 +251,7 @@ var tourView = "";
 	        	
 	        	stepcount = 0;
 	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',stepcount);
+
 	        	$('#playStart .tourWrapper.active .tour.active').addClass("player-in-jail");
 	        }
 		}
@@ -312,6 +323,7 @@ $(document).on('click ', '#playingField .tailWrapper.center .tail.allowed', func
 
 
 $(document).on('click ', '#inCountry .tourWrapper.active .tour', function () {
+
 		tourView = $(this).attr("data-view");
 		$('#infogame h2').text('Если хотите вывести путешественника из страны, то просто ступайте на один из выделенных квадратов!');
 		$('#playStart .tourWrapper.active .tour').removeClass("active");
@@ -346,73 +358,59 @@ $(document).on('click ', '#button-restart', function () {
 			 $('.tail-start').removeClass("selected");
 	    });	
 
-	$(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', function () {
 
-		if(!tourView==""){
-				$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').addClass('active');
-				$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').removeClass('incountry');
-				incountrytcount--;
-				$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').parent().css('opacity',1);
-				$('#inCountry .tourWrapper.active .tour[data-view="'+tourView+'"]').parent().attr('style','opacity:0;pointer-events:none; ');
-				setTimeout(function() {	$('#inCountry .tourWrapper.active .tour[data-view="'+tourView+'"]').parent().remove();
-					$('#playStart .tourWrapper.active  .tour[data-view="'+tourView+'"]').parent().css('transition','0.3s all');
-					tourView ="";
-								}, 1900); 
-				$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').attr('data-step',1);
 
-		}
-		
-		stepcount = $('#playStart .tourWrapper.active .tour.active').attr('data-step');
-		
-		console.log(stepcount);
-		if (stepcount == 0){
-			$('#playStart .tourWrapper.active .tour').removeClass("player-in-jail-now");
-		$(this).addClass("player-in-jail-now");
-		 var topPlayerJail = $(this).parent().offset().top;
+$(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', function () {
+	
+		var topPlayerJail = $(this).parent().offset().top;
 	     var leftPlayerJail = $(this).parent().offset().left;
-	     var rightPlayerJail = $(this).parent().offset().left+52;
-	     var bottomPlayerJail = $(this).parent().offset().top+52;
-	    console.log(topPlayerJail+'---'+leftPlayerJail+'---'+rightPlayerJail+'---'+bottomPlayerJail);
-	    if(!tourView==""){
-	    	jailcount--;
-				        $('#playStart .tourWrapper.active .tour.active').parent().css({left:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().left,top:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().top});
-					      $('#playStart .tourWrapper.active .tour').removeClass("active");
-					      $('#inCountry .tourWrapper.active .tour').removeClass("active");
-						$('#playingField .tailWrapper .tail').removeClass("allowed");
-						$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').addClass("active");
-						$('#playStart .tourWrapper.active .tour.active').attr('data-step',1);
-						 $('#playStart .tourWrapper.active .tour.active').removeClass("player-in-jail");
-						$('#playStart .tourWrapper.active .tour.active').removeClass("player-in-jail-now");
-						$('#playStart .tourWrapper .tour.active').click();
-						$('#playStart .tourWrapper .tour.active').parent().css('z-index',2);
-	    }
-	    else{
-	    	$("#playStart .tourWrapper.active .tour:not(.player-in-jail-now)").each(function () {
-	    		stepcount--;
-	     		console.log($(this).parent().offset().top+'---'+$(this).offset().left);
-	     	    if($(this).parent().offset().top == bottomPlayerJail && $(this).offset().left == leftPlayerJail ||$(this).parent().offset().top+52 == topPlayerJail && $(this).parent().offset().left == leftPlayerJail||$(this).parent().offset().top == topPlayerJail && $(this).parent().offset().left == rightPlayerJail ||$(this).parent().offset().top == topPlayerJail && $(this).parent().offset().left+52 == leftPlayerJail){
-	     	    	jailcount--;
-				        $('#playStart .tourWrapper.active .tour.active').parent().css({left:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().left,top:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().top});
-					      $('#playStart .tourWrapper.active .tour').removeClass("active");
-					      $('#inCountry .tourWrapper.active .tour').removeClass("active");
-						$('#playingField .tailWrapper .tail').removeClass("allowed");
-						$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').addClass("active");
-						$('#playStart .tourWrapper.active .tour.active').attr('data-step',1);
-						 $('#playStart .tourWrapper.active .tour.active').removeClass("player-in-jail");
-						$('#playStart .tourWrapper.active .tour.active').removeClass("player-in-jail-now");
-						$('#playStart .tourWrapper .tour.active').click();
-						$('#playStart .tourWrapper .tour.active').parent().css('z-index',2);
-	     	    }
-		    });
-	    }
-	     	
-		}
-		else{
-			$('#infogame h2').text('Из тюрьмы можно освободить, только встав на эту клетку последним ходом туриста. (перед тем как встать на квадрат, у туриста должен оставаться один ход)');
-		}
-		
-		
+	     $('#infogame h2').text('Из тюрьмы можно освободить, только встав на эту клетку последним ходом туриста. (перед тем как встать на квадрат, у туриста должен оставаться один ход)');
+		$('#playStart .tourWrapper.active .tour').removeClass("player-in-jail-now");
+			$(this).addClass("player-in-jail-now");
+			if(!tourView==""){
+							
+									$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').addClass('active');
+									$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').removeClass('incountry');
+									incountrytcount--;
+									$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').attr('data-step',1);
+									$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').parent().css('opacity',1);
+									$('#inCountry .tourWrapper.active .tour[data-view="'+tourView+'"]').parent().attr('style','opacity:0;pointer-events:none; ');
+									setTimeout(function() {	$('#inCountry .tourWrapper.active .tour[data-view="'+tourView+'"]').parent().remove();
+										$('#playStart .tourWrapper.active  .tour[data-view="'+tourView+'"]').parent().css('transition','0.3s all');
+										tourView ="";
+													}, 1900); 
+									$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').attr('data-step',1);
 
-	})
+							}
+		$("#playingField .tailWrapper .tail.allowed").each(function () {
+				if($(this).offset().top == topPlayerJail && $(this).offset().left == leftPlayerJail){
+					stepcount = $('#playStart .tourWrapper.active .tour.active').attr('data-step');	
+					console.log(stepcount);
+					stepcount--;
+
+					if (stepcount == 0){
+						jailcount--;
+						$('#infogame h2').text('Ура! Вы освободили заключенного!');
+						console.log(tourView);
+						
+							$('#playStart .tourWrapper.active .tour.active').parent().css({left:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().left,top:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().top});
+					      $('#playStart .tourWrapper.active .tour').removeClass("active");
+					      $('#inCountry .tourWrapper.active .tour').removeClass("active");
+						$('#playingField .tailWrapper .tail').removeClass("allowed");
+						$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').addClass("active");
+						$('#playStart .tourWrapper.active .tour.active').attr('data-step',1);
+						 $('#playStart .tourWrapper.active .tour.active').removeClass("player-in-jail");
+						$('#playStart .tourWrapper.active .tour.active').removeClass("player-in-jail-now");
+						$('#playStart .tourWrapper .tour.active').click();
+						$('#playStart .tourWrapper .tour.active').parent().css('z-index',2);
+					}
+
+				}
+				
+		})
+
+
+
 })
 
+})
