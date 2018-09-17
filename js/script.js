@@ -430,11 +430,17 @@ function openFormDeck() {
     	 slidesPerView: 3,
       slidesPerColumn: 2,
       spaceBetween: 30,
-      
+
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
+      breakpoints:{
+			770:{
+				slidesPerView: 1,
+				slidesPerColumn: 2,
+			}
+		}
     });
 } 
 
