@@ -437,8 +437,8 @@ function openFormDeck() {
       },
       breakpoints:{
 			770:{
-				slidesPerView: 1,
-				slidesPerColumn: 2,
+				slidesPerView: 3,
+				slidesPerColumn: 1,
 			}
 		}
     });
