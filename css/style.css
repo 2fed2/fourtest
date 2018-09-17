@@ -304,6 +304,7 @@ font-size: 20px;
 position: absolute;
 top: 15px;
 right: 15px;
+background: red;
 }
 #formDeck{
   position: absolute;
@@ -311,6 +312,7 @@ right: 15px;
   height: 100%;
   left: 0;
   top: 0;
+      padding: 0 50px;
   background: #333;
 }
 #formDeck.formDeckDis{
