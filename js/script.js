@@ -413,8 +413,11 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 
 });
 
-
 })
+    var width = $(window).width();
+ if (width < 850) {
+ 	$('head meta[name="viewport"]').attr('content',"width=700;initial-scale=1; minimum-scale=1; maximum-scale=1;user-scalable=no;");
+ }
 
 
 
