@@ -411,6 +411,33 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 
 
 
-})
+});
+
 
 })
+
+
+
+var x = document.getElementById("myAudio1"); 
+function playAudio() { 
+    x.play();
+    setTimeout(function() { x.play();}, 1900); 
+} 
+
+function openFormDeck() { 
+    $('#formDeck').removeClass("formDeckDis");
+    var swiper = new Swiper('.swiper-container', {
+    	 slidesPerView: 3,
+      slidesPerColumn: 2,
+      spaceBetween: 30,
+      
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+} 
+
+function closeFormDeck() { 
+    $('#formDeck').addClass("formDeckDis");
+} 
