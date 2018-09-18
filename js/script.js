@@ -425,6 +425,7 @@ function playAudio1() {
 	$('.wrapper .cat-loader').removeClass("disCat");
 	x.load();
 	x.play();
+	var y = document.getElementById("myAudio2"); 
         x.onended = function() {
                 y.load();
 		y.play();
