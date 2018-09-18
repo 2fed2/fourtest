@@ -421,27 +421,28 @@ $('head meta[name="viewport"]').attr('content','width=700px;initial-scale=1; min
 
 
 var x = document.getElementById("myAudio1"); 
+var yy = document.getElementById("myAudio2"); 
 function playAudio1() { 
 	$('.wrapper .cat-loader').removeClass("disCat");
 	x.load();
 	x.play();
-	var y = document.getElementById("myAudio2"); 
-        x.onended = function() {
-		$('.wrapper .cat-loader').removeClass("disCat");
-                y.load();
-		y.play();
-		y.oncanplaythrough = function() {
-		 $('.wrapper .cat-loader').addClass("disCat");
-		}
-		
-};
+	
+			x.onended = function() {
+				$('.wrapper .cat-loader').removeClass("disCat");
+				yy.load();
+				yy.play();
+				yy.oncanplaythrough = function() {
+				 $('.wrapper .cat-loader').addClass("disCat");
+				}
+
+			};
 	
 	x.oncanplaythrough = function() {
            $('.wrapper .cat-loader').addClass("disCat");
       };
          
      
-	//$(this).parent().find().addClass("disCat");
+	
     
     
    
