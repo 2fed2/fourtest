@@ -426,12 +426,18 @@ function playAudio1() {
 	x.load();
 	x.play();
         x.onended = function() {
-                x.load();
-		x.play();
+                y.load();
+		y.play();
 };
+	
+	x.oncanplaythrough = function() {
+           $('.wrapper .cat-loader').addClass("disCat");
+      };
+         
+     
 	//$(this).parent().find().addClass("disCat");
     
-    $('.wrapper .cat-loader').addClass("disCat");
+    
    
 } 
 
