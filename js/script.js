@@ -429,7 +429,7 @@ function playAudio1() {
 	
 			x.onended = function() {
 				$('.wrapper .cat-loader').removeClass("disCat");
-				playAudio2();
+				$('button#audio2').click();
 				
 
 			};
