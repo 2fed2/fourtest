@@ -430,7 +430,7 @@ function playAudio1() {
 		$('.wrapper .cat-loader').removeClass("disCat");
                 y.load();
 		y.play();
-		y.onended = function() {
+		y.oncanplaythrough = function() {
 		 $('.wrapper .cat-loader').addClass("disCat");
 		}
 		
