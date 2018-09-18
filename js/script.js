@@ -426,15 +426,11 @@ function playAudio1() {
 	$('.wrapper .cat-loader').removeClass("disCat");
 	x.load();
 	x.play();
-	yy.load();
 	
 			x.onended = function() {
 				$('.wrapper .cat-loader').removeClass("disCat");
+				playAudio2();
 				
-				yy.play();
-				yy.oncanplaythrough = function() {
-				 $('.wrapper .cat-loader').addClass("disCat");
-				}
 
 			};
 	
@@ -449,7 +445,14 @@ function playAudio1() {
    
 } 
 
-
+var y = document.getElementById("myAudio2"); 
+function playAudio2() { 
+	y.load();
+    y.play();
+    y.oncanplaythrough = function() {
+				 $('.wrapper .cat-loader').addClass("disCat");
+				}
+} 
 
 function openFormDeck() { 
     $('#formDeck').removeClass("formDeckDis");
