@@ -424,11 +424,15 @@ var x = document.getElementById("myAudio1");
 function playAudio1() { 
 	$('.wrapper .cat-loader').removeClass("disCat");
 	x.load();
-
+	x.play();
+        x.onended = function() {
+                x.load();
+		x.play();
+};
 	//$(this).parent().find().addClass("disCat");
-    x.play();
+    
     $('.wrapper .cat-loader').addClass("disCat");
-    setTimeout(function() { x.load();x.play();}, 2000); 
+   
 } 
 
 var y = document.getElementById("myAudio2"); 
