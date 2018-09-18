@@ -412,10 +412,7 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 
 
 });
-$(document).on('click ', '#playAudio', function () {
-	alert();
-	       playAudio();
-	    });	
+
 })
     
 
