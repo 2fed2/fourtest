@@ -426,12 +426,12 @@ function playAudio1() {
 	$('.wrapper .cat-loader').removeClass("disCat");
 	x.load();
 	x.play();
+	yy.load();
 	
 			x.onended = function() {
 				$('.wrapper .cat-loader').removeClass("disCat");
-				yy.load();
+				
 				yy.play();
-				alert(yy);
 				yy.oncanplaythrough = function() {
 				 $('.wrapper .cat-loader').addClass("disCat");
 				}
