@@ -418,10 +418,17 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 
 
 var x = document.getElementById("myAudio1"); 
-function playAudio() { 
+function playAudio1() { 
 	x.load();
     x.play();
     setTimeout(function() { x.load();x.play();}, 1900); 
+} 
+
+var y = document.getElementById("myAudio2"); 
+function playAudio2() { 
+	y.load();
+    y.play();
+    setTimeout(function() { y.load();y.play();}, 1000); 
 } 
 
 function openFormDeck() { 

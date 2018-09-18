@@ -355,7 +355,7 @@ background: red;
       top: 50%;
     }
 
-#playAudio{
+.playAudio{
   width: 200px ;
   height: 60px;
 }
