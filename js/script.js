@@ -421,14 +421,14 @@ var x = document.getElementById("myAudio1");
 function playAudio1() { 
 	x.load();
     x.play();
-    setTimeout(function() { x.load();x.play();}, 1900); 
+    setTimeout(function() { x.load();x.play();}, 2000); 
 } 
 
 var y = document.getElementById("myAudio2"); 
 function playAudio2() { 
 	y.load();
     y.play();
-    setTimeout(function() { y.load();y.play();}, 1000); 
+    setTimeout(function() { y.load();y.play();}, 2000); 
 } 
 
 function openFormDeck() { 
