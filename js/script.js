@@ -431,6 +431,7 @@ function playAudio1() {
 				$('.wrapper .cat-loader').removeClass("disCat");
 				yy.load();
 				yy.play();
+				alert(yy);
 				yy.oncanplaythrough = function() {
 				 $('.wrapper .cat-loader').addClass("disCat");
 				}
@@ -448,12 +449,7 @@ function playAudio1() {
    
 } 
 
-var y = document.getElementById("myAudio2"); 
-function playAudio2() { 
-	y.load();
-    y.play();
-    setTimeout(function() { y.load();y.play();}, 2000); 
-} 
+
 
 function openFormDeck() { 
     $('#formDeck').removeClass("formDeckDis");
