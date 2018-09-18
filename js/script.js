@@ -427,6 +427,7 @@ function playAudio1() {
 	x.play();
 	var y = document.getElementById("myAudio2"); 
         x.onended = function() {
+		alert(y);
                 y.load();
 		y.play();
 };
