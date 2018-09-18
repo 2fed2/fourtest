@@ -421,7 +421,7 @@ var x = document.getElementById("myAudio1");
 function playAudio() { 
 	x.load();
     x.play();
-    setTimeout(function() { x.play();}, 1900); 
+    setTimeout(function() { x.load();x.play();}, 1900); 
 } 
 
 function openFormDeck() { 
