@@ -427,9 +427,13 @@ function playAudio1() {
 	x.play();
 	var y = document.getElementById("myAudio2"); 
         x.onended = function() {
-		alert(y);
+		$('.wrapper .cat-loader').removeClass("disCat");
                 y.load();
 		y.play();
+		y.onended = function() {
+		 $('.wrapper .cat-loader').addClass("disCat");
+		}
+		
 };
 	
 	x.oncanplaythrough = function() {
