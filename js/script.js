@@ -412,7 +412,10 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 
 
 });
-
+    var width = $(window).width();
+ if (width < 1000 ) {
+$('head meta[name="viewport"]').attr('content','width=700px;initial-scale=1; minimum-scale=1; maximum-scale=1;user-scalable=no;');
+ }
 })
     
 
@@ -434,34 +437,18 @@ function playAudio2() {
 function openFormDeck() { 
     $('#formDeck').removeClass("formDeckDis");
     var swiper = new Swiper('.swiper-container', {
-    	 slidesPerView: 3,
-      slidesPerColumn: 1,
+    slidesPerView: 3,
+      slidesPerColumn: 2,
       spaceBetween: 30,
-
-      navigation: {
+    mousewheel: true,
+    resizeReInit: true,
+    navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-    // when window width is <= 320px
-    320: {
-      slidesPerView: 1,
-      spaceBetween: 10
-    },
-    // when window width is <= 480px
-    480: {
-      slidesPerView: 2,
-      spaceBetween: 20
-    },
-    // when window width is <= 640px
-    640: {
-      slidesPerView: 3,
-      spaceBetween: 30
-    }
-  }
-     
+   		 },
+	});
+    
 
-    });
 } 
 
 function closeFormDeck() { 
