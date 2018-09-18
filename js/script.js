@@ -422,7 +422,10 @@ $('head meta[name="viewport"]').attr('content','width=700px;initial-scale=1; min
 
 var x = document.getElementById("myAudio1"); 
 function playAudio1() { 
+	$('.wrapper .cat-loader').removeClass("disCat");
 	x.load();
+	$('.wrapper .cat-loader').addClass("disCat");
+	//$(this).parent().find().addClass("disCat");
     x.play();
     setTimeout(function() { x.load();x.play();}, 2000); 
 } 
