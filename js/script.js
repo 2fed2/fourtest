@@ -421,10 +421,11 @@ $('head meta[name="viewport"]').attr('content','width=700px;initial-scale=1; min
 
 
 var x = document.getElementById("myAudio1"); 
-var yy = document.getElementById("myAudio2"); 
+var y = document.getElementById("myAudio2"); 
 function playAudio1() { 
 	$('.wrapper .cat-loader').removeClass("disCat");
 	x.load();
+	y.load();
 	x.play();
 	
 			x.onended = function() {
@@ -445,7 +446,7 @@ function playAudio1() {
    
 } 
 
-var y = document.getElementById("myAudio2"); 
+
 function playAudio2() { 
 	y.load();
     y.play();
