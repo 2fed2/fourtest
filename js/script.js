@@ -458,7 +458,7 @@ $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function
 	var swiper = new Swiper('#formTakeCard .swiper-container', {
     slidesPerView: 3,
       slidesPerColumn: 2,
-      spaceBetween: 30,
+      spaceBetween: 60,
     mousewheel: true,
     resizeReInit: true,
     navigation: {
@@ -510,7 +510,7 @@ function openFormDeck() {
     var swiper = new Swiper('#formDeck .swiper-container', {
     slidesPerView: 3,
       slidesPerColumn: 2,
-      spaceBetween: 30,
+      spaceBetween: 60,
     mousewheel: true,
     resizeReInit: true,
     navigation: {
@@ -526,7 +526,7 @@ function openformTakeCard() {
     var swiper = new Swiper('#formTakeCard .swiper-container', {
     slidesPerView: 3,
       slidesPerColumn: 2,
-      spaceBetween: 30,
+      spaceBetween: 60,
     mousewheel: true,
     resizeReInit: true,
     navigation: {

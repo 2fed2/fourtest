@@ -466,7 +466,9 @@ background: red;
   cursor: pointer;
 }
 
-
+ .swiper-wrapper .swiper-slide{
+  border-radius: 20px;
+ }
 
 
 
