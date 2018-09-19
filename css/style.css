@@ -193,7 +193,18 @@ height: 44px;
  background-size: 100% 44px;
 transition: 1.5s all;
 }
-
+#playerTail .tour-state-in-jail::before{
+  top:-94px;
+width: 94px;
+height: 94px;
+ background-size: 100% 94px;
+}
+#playerTail .tour-state-in-book::before{
+width: 40px;
+height: 40px;
+bottom:-40px;
+ background-size: 100% 40px;
+}
 .tour-state-in-book::before{
   height: 20px;
   width: 20px;
@@ -203,10 +214,12 @@ transition: 1.5s all;
   bottom:-20px;
 }
 
-.tour.player-in-jail .tour-state-in-jail::before{
+.tour.player-in-jail .tour-state-in-jail::before,
+#playerTail .tour.player-in-jail .tour-state-in-jail::before{
 top:0;
 }
-.tour.player-in-book .tour-state-in-book::before{
+.tour.player-in-book .tour-state-in-book::before,
+#playerTail .tour.player-in-book .tour-state-in-book::before{
 bottom:0;
 }
 .tour[data-view='three']{

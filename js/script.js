@@ -290,7 +290,7 @@ $('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount
 		}
 		else{
 			
-			setTimeout(function() { $('#playStart .tourWrapper .tour.click-player:not(.player-in-jail)').click();
+			setTimeout(function() { $('#playStart .tourWrapper .tour.click-player').click();
 								$('#playStart .tourWrapper .tour.click-player').removeClass("click-player");
 								
 								}, 350);
@@ -338,6 +338,8 @@ $(document).on('click ', '#playingField .tailWrapper.center .tail.allowed', func
 
 
 $(document).on('click ', '#inCountry .tourWrapper.active .tour', function () {
+	$('#playerTail .tourWrapper').remove();
+		$(this).parent().clone().appendTo('#playerTail');
 $('#infogame .infogame-but button').remove();
 		tourView = $(this).attr("data-view");
 		$('#infogame h2').text('Если хотите вывести путешественника из страны, то просто ступайте на один из выделенных квадратов!');
@@ -384,6 +386,7 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 	     $('#infogame h2').text('Из тюрьмы можно освободить, только встав на эту клетку последним ходом туриста. (перед тем как встать на квадрат, у туриста должен оставаться один ход)');
 		$('#playStart .tourWrapper.active .tour').removeClass("player-in-jail-now");
 			$(this).addClass("player-in-jail-now");
+
 			if(!tourView==""){
 							
 									$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').addClass('active');
