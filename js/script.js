@@ -158,6 +158,8 @@ $(document).on('click ', '.tail-start', function () {
 
 
 	$(document).on('click ', '#playStart .tourWrapper.active .tour:not(.player-in-jail,.player-in-book)', function () {
+		$('#playerTail .tourWrapper').remove();
+		$(this).parent().clone().appendTo('#playerTail');
 		$('#infogame .infogame-but button').remove();
 		if(!$(this).hasClass("onField")){
 			$('#infogame h2').text('Сделайте первый ход на квадрат в зеленой рамке.');
@@ -374,6 +376,8 @@ $(document).on('click ', '#button-restart', function () {
 
 
 $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', function () {
+	$('#playerTail .tourWrapper').remove();
+		$(this).parent().clone().appendTo('#playerTail');
 	$('#infogame .infogame-but button').remove();
 		var topPlayerJail = $(this).parent().offset().top;
 	     var leftPlayerJail = $(this).parent().offset().left;
@@ -426,6 +430,8 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 
 });
 $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-book', function () {
+	$('#playerTail .tourWrapper').remove();
+		$(this).parent().clone().appendTo('#playerTail');
 				$('#playStart .tourWrapper.active .tour').removeClass("active");
 				$('#inCountry .tourWrapper.active .tour').removeClass("active");
 				if($(this).attr('data-step')==1){

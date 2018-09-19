@@ -126,7 +126,7 @@ opacity: 0.5;
     background: #556B2F;
     box-sizing: border-box;
     border-radius: 8px;
-        border-radius: 8px;
+    border-radius: 8px;
     border: 3px solid #556B2F;
     cursor: pointer;
 }
@@ -226,7 +226,8 @@ bottom:0;
   position: absolute;
   padding: 0;
 }
-#playStart .tourWrapper .tour span{
+#playStart .tourWrapper .tour span,
+#playerTail .tourWrapper .tour span{
     font-size: 12px;
     color: #FF6800;
     background: #000;
@@ -237,7 +238,15 @@ bottom:0;
     top: -9px;
     display: none;
 }
-#playStart .tourWrapper.active .tour span{
+#playerTail .tourWrapper .tour span{
+    font-size: 25px;
+     padding: 2px 5px;
+     right: -22px;
+    top: -18px;
+}
+ 
+#playStart .tourWrapper.active .tour span,
+#playerTail .tourWrapper.active .tour span{
        display: inline;
 }
 #playStart .tourWrapper .tour,
@@ -258,13 +267,16 @@ border-radius: 8px;
   background-size:176px 44px;
 }
 #playStart .tourWrapper.active .tour.active,
-#inCountry .tourWrapper.active .tour.active{
+#inCountry .tourWrapper.active .tour.active,
+#playerTail .tourWrapper .tour{
     border-color:green;
 }
-#playStart .tourWrapper.active .tour.player-in-jail{
+#playStart .tourWrapper.active .tour.player-in-jail,
+#playerTail .tourWrapper .tour.player-in-jail{
     border-color:red;
 }
-#playStart .tourWrapper.active .tour.player-in-book{
+#playStart .tourWrapper.active .tour.player-in-book,
+#playerTail .tourWrapper  .tour.player-in-book{
     border-color:yellow;
 }
 #playStart .tourWrapper.active .tour,
@@ -299,7 +311,7 @@ border-radius: 8px;
 
 .col-lg-6{
  margin-top: 50px!important;
-    min-height: 624px; 
+    min-height: 624px!important; 
 }
 
 #inCountry{
@@ -325,6 +337,11 @@ border-radius: 8px;
 #cardDeck{
   position: absolute;
   right: 28px;
+  top: 0;
+}
+#playerTail{
+  position: absolute;
+  left: 28px;
   top: 0;
 }
 #cardDeck button{
