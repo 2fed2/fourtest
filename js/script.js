@@ -448,6 +448,30 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-book', 
 		        }
 });
 
+$(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function () {
+	var card = $('<div class="swiper-slide">');
+	card.text($(this).text());
+	card.appendTo($("#formDeck .swiper-wrapper"));
+	$(this).parent().css("margin-top",-30);
+	$(this).remove();
+
+	var swiper = new Swiper('#formTakeCard .swiper-container', {
+    slidesPerView: 3,
+      slidesPerColumn: 2,
+      spaceBetween: 30,
+    mousewheel: true,
+    resizeReInit: true,
+    navigation: {
+        nextEl: '#formTakeCard .swiper-button-next',
+        prevEl: '#formTakeCard .swiper-button-prev',
+   		 },
+	});
+	var cardcount = $("#cardDeck button").attr("data-count-card");
+	cardcount++;
+	$("#cardDeck button").attr("data-count-card",cardcount);
+	$("#cardDeck button span").text(cardcount);
+});
+
     var width = $(window).width();
  if (width < 1000 ) {
 $('head meta[name="viewport"]').attr('content','width=700px;initial-scale=1; minimum-scale=1; maximum-scale=1;user-scalable=no;');
@@ -483,21 +507,39 @@ function playAudio2() {
 
 function openFormDeck() { 
     $('#formDeck').removeClass("formDeckDis");
-    var swiper = new Swiper('.swiper-container', {
+    var swiper = new Swiper('#formDeck .swiper-container', {
     slidesPerView: 3,
       slidesPerColumn: 2,
       spaceBetween: 30,
     mousewheel: true,
     resizeReInit: true,
     navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        nextEl: '#formDeck .swiper-button-next',
+        prevEl: '#formDeck .swiper-button-prev',
    		 },
 	});
     
 
 } 
+function openformTakeCard() { 
+    $('#formTakeCard').removeClass("formTakeCardDis");
+    var swiper = new Swiper('#formTakeCard .swiper-container', {
+    slidesPerView: 3,
+      slidesPerColumn: 2,
+      spaceBetween: 30,
+    mousewheel: true,
+    resizeReInit: true,
+    navigation: {
+        nextEl: '#formTakeCard .swiper-button-next',
+        prevEl: '#formTakeCard .swiper-button-prev',
+   		 },
+	});
+    
 
+} 
 function closeFormDeck() { 
     $('#formDeck').addClass("formDeckDis");
+} 
+function formTakeCard() { 
+    $('#formTakeCard').addClass("formTakeCardDis");
 } 

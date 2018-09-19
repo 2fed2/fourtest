@@ -81,12 +81,36 @@
 					
 				</div>
 				<div id="cardDeck" class="cardDeckDis">
-					<button onclick="openFormDeck()" type="button">Колода</button>
+					<button onclick="openFormDeck()" type="button" data-count-card="0">Колода<span>0</span></button>
 				</div>
 				<div id="playerTail" class="playerTailDis">
 					
 				</div>
 				<div id="formDeck" class="formDeckDis">
+					 <div class="swiper-container">
+						    <div class="swiper-wrapper">
+						     
+						    </div>
+						    
+						  </div>
+
+						  <div class="swiper-button-next"></div>
+    					<div class="swiper-button-prev"></div>
+
+						  
+
+					<button  onclick="closeFormDeck()" type="button">Закрыть</button>
+				</div>
+
+			</div>
+
+
+			<div class="col-lg-6">
+				<div id="infogame">
+					<div id="takeCard" class="takeCardDis">
+						<button onclick="openformTakeCard()" type="button">Взять карту</button>
+					</div>
+					<div id="formTakeCard" class="formTakeCardDis">
 					 <div class="swiper-container">
 						    <div class="swiper-wrapper">
 						      <div class="swiper-slide">Slide 1</div>
@@ -108,16 +132,8 @@
 
 						  
 
-					<button  onclick="closeFormDeck()" type="button">Закрыть</button>
+					<button  onclick="formTakeCard()" type="button">Закрыть</button>
 				</div>
-			</div>
-
-
-			<div class="col-lg-6">
-				<div id="infogame">
-					<div id="takeCard" class="takeCardDis">
-						<button onclick="" type="button">Взять карту</button>
-					</div>
 					<h2></h2>
 					<div class="infogame-pic"></div>
 					<div class="infogame-but"></div>
