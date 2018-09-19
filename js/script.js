@@ -449,7 +449,7 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-book', 
 });
 
 $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function () {
-	var card = $('<div class="swiper-slide">');
+	var card = $('<div class="swiper-slide"  data-toggle="modal" data-target="#myModal" type="button" >');
 	card.text($(this).text());
 	card.appendTo($("#formDeck .swiper-wrapper"));
 	//$(this).parent().css("margin-top",-60);
@@ -465,6 +465,11 @@ $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function
 	cardcount++;
 	$("#cardDeck button").attr("data-count-card",cardcount);
 	$("#cardDeck button span").text(cardcount);
+});
+
+$(document).on('click ', '#formDeck .swiper-wrapper .swiper-slide', function () {
+	$("#myModal .modal-body").text($(this).text());
+	
 });
 
     var width = $(window).width();

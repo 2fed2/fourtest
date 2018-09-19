@@ -462,7 +462,8 @@ background: red;
 
 
 
-#formTakeCard .swiper-wrapper .swiper-slide{
+#formTakeCard .swiper-wrapper .swiper-slide,
+#formDeck .swiper-wrapper .swiper-slide{
   cursor: pointer;
 }
 
