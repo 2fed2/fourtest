@@ -8,7 +8,14 @@ jQuery(document).ready(function($) {
 	for (var i = 0; i < randomSummCount; i++) {
 	    randomCount.push(i);
 	}
-	
+
+	var arr = [1, 2, 3, 4, 5];
+	function compareRandom(a, b) {
+	  return Math.random() - 0.5;
+	}
+	arr.sort(compareRandom);
+	console.log( arr );
+
 	var classTail = [];
 
 	function createRowTale(offset1,offset2,offset3,leftright) {
@@ -79,8 +86,12 @@ for (var i = 0; i < tourist.length; i++) {
    		var imgTour = $('<div class="tourWrapper">');
 		var tour = $('<div class="tour">');
 		var step = $('<span>');
+		var statejail = $('<div  class="tour-state-in-jail">');
+		var statebook = $('<div  class="tour-state-in-book">');
 		tour.attr('data-view',tourist[i]);
-		step.appendTo(tour);	
+		step.appendTo(tour);
+		statejail.appendTo(tour);
+		statebook.appendTo(tour);	
 		tour.appendTo(imgTour);	
 		imgTour.appendTo('#infogame .infogame-pic');
 		}
@@ -101,7 +112,18 @@ function allowedTail(obj,x,y,z1,z2) {
 			        	obj.find(".tail").addClass("allowed");	
 		     	    }
 }
-
+function playerInBook(text,count) {
+				$('#infogame .infogame-but button').remove();
+				$('#infogame h2').text(text);
+				var buttonStart = $('<button type="button" id="button-construct">');
+				buttonStart.attr('data-step',count);
+				buttonStart.text("СОБРАTЬ ПРЕДЛОЖЕНИЕ")
+				buttonStart.appendTo('#infogame .infogame-but');
+	        	stepcount = 0;
+	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',count);
+	        	$('#playStart .tourWrapper.active .tour.active').addClass("player-in-book");
+	        	$('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount);
+}
 
 $(document).on('click ', '.tail-start', function () {
 	$(this).addClass("selected");
@@ -122,6 +144,7 @@ $(document).on('click ', '.tail-start', function () {
 
 	$(document).on('click ', '#button-start', function () {
 	      $('#playingField').removeClass("playingFieldDis");
+	      $('#takeCard').removeClass("takeCardDis");
 	      $(this).remove();
 	      $("#playStart .tourWrapper").addClass("active");
 	      $('#infogame h2').text('Выберите путешественника и ходите на выделенное поле.');
@@ -134,8 +157,8 @@ $(document).on('click ', '.tail-start', function () {
 
 
 
-	$(document).on('click ', '#playStart .tourWrapper.active .tour:not(.player-in-jail)', function () {
-		
+	$(document).on('click ', '#playStart .tourWrapper.active .tour:not(.player-in-jail,.player-in-book)', function () {
+		$('#infogame .infogame-but button').remove();
 		if(!$(this).hasClass("onField")){
 			$('#infogame h2').text('Сделайте первый ход на квадрат в зеленой рамке.');
         	$(this).addClass("onField");
@@ -204,22 +227,13 @@ $('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount
 			$(this).addClass('turnover');
 	        $(this).addClass(classTail[$(this).parent().index()-1]);
 	        if($(this).hasClass("tail-one")){
-	        	$('#infogame h2').text('Путешественник может пройти 1 квадрат.');
-	        	stepcount = 1;
-	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',stepcount);
-	        	$('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount);
+	        	playerInBook('Собрав правильно предложение, турист сможет сделать 1 шаг. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',1);
 	        }
 	        if($(this).hasClass("tail-two")){
-	        	$('#infogame h2').text('Путешественник может пройти 2 квадрата.');
-	        	stepcount = 2;
-	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',stepcount);
-	        	$('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount);
+	        	playerInBook('Собрав правильно предложение, турист сможет сделать 2 шага. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',2);
 	        }
 	        if($(this).hasClass("tail-three")){
-	        	$('#infogame h2').text('Путешественник может пройти 3 квадрата.');
-	        	stepcount = 3;
-	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',stepcount);
-	        	$('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount);
+	        	playerInBook('Собрав правильно предложение, турист сможет сделать 3 шага. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',3);
 	        }
 	        if($(this).hasClass("tail-jail")){
 
@@ -251,7 +265,6 @@ $('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount
 	        	
 	        	stepcount = 0;
 	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',stepcount);
-
 	        	$('#playStart .tourWrapper.active .tour.active').addClass("player-in-jail");
 	        }
 		}
@@ -323,7 +336,7 @@ $(document).on('click ', '#playingField .tailWrapper.center .tail.allowed', func
 
 
 $(document).on('click ', '#inCountry .tourWrapper.active .tour', function () {
-
+$('#infogame .infogame-but button').remove();
 		tourView = $(this).attr("data-view");
 		$('#infogame h2').text('Если хотите вывести путешественника из страны, то просто ступайте на один из выделенных квадратов!');
 		$('#playStart .tourWrapper.active .tour').removeClass("active");
@@ -361,7 +374,7 @@ $(document).on('click ', '#button-restart', function () {
 
 
 $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', function () {
-	
+	$('#infogame .infogame-but button').remove();
 		var topPlayerJail = $(this).parent().offset().top;
 	     var leftPlayerJail = $(this).parent().offset().left;
 	     $('#infogame h2').text('Из тюрьмы можно освободить, только встав на эту клетку последним ходом туриста. (перед тем как встать на квадрат, у туриста должен оставаться один ход)');
@@ -412,6 +425,20 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 
 
 });
+$(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-book', function () {
+				$('#playStart .tourWrapper.active .tour').removeClass("active");
+				$('#inCountry .tourWrapper.active .tour').removeClass("active");
+				if($(this).attr('data-step')==1){
+		        	playerInBook('Собрав правильно предложение, турист сможет сделать 1 шаг. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',1);
+		        }
+		        if($(this).attr('data-step')==2){
+		        	playerInBook('Собрав правильно предложение, турист сможет сделать 2 шага. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',2);
+		        }
+		        if($(this).attr('data-step')==3){
+		        	playerInBook('Собрав правильно предложение, турист сможет сделать 3 шага. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',3);
+		        }
+});
+
     var width = $(window).width();
  if (width < 1000 ) {
 $('head meta[name="viewport"]').attr('content','width=700px;initial-scale=1; minimum-scale=1; maximum-scale=1;user-scalable=no;');
@@ -427,23 +454,13 @@ function playAudio1() {
 	x.load();
 	y.load();
 	x.play();
-	
 			x.onended = function() {
 				$('.wrapper .cat-loader').removeClass("disCat");
 				playAudio2();
-				
-
 			};
-	
 	x.oncanplaythrough = function() {
            $('.wrapper .cat-loader').addClass("disCat");
       };
-         
-     
-	
-    
-    
-   
 } 
 
 

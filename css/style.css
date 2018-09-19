@@ -145,8 +145,11 @@ opacity: 0.5;
 }
 #infogame .infogame-but button{
   font-size: 20px;
-  padding: 12px;
-  background: green;
+width: 100%;
+height: 100px;
+border-radius: 10px;
+ background: green;
+ color:#fff;
   transition: 1s all;
 }
 button.button-hidden{
@@ -165,22 +168,46 @@ border-radius: 8px;
   background-size:376px 94px;
   position: relative;
 }
-.tour::before{
+.tour-state-in-jail,
+.tour-state-in-book{
+  position: absolute;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top:0;
+  overflow: hidden;
+}
+.tour-state-in-jail::before,
+.tour-state-in-book::before{
 	content: "";
 	left:0;
-	top:0;
+	top:-44px;
 position: absolute;
 display: inline-block;
 background-image: url('../img/jail.png');
 width: 44px;
-height: 0px;
+height: 44px;
  background-position: center;
   background-repeat: no-repeat;
- background-size: 100% 100%;
+ background-size: 100% 44px;
 transition: 1.5s all;
 }
-.tour.player-in-jail::before{
-height: 44px;
+
+.tour-state-in-book::before{
+  height: 20px;
+  width: 20px;
+  background-size: 100% 20px;
+  background-image: url('../img/book.png');
+  top:auto;
+  bottom:-20px;
+}
+
+.tour.player-in-jail .tour-state-in-jail::before{
+top:0;
+}
+.tour.player-in-book .tour-state-in-book::before{
+bottom:0;
 }
 .tour[data-view='three']{
      background-position: 94px 0px;
@@ -237,6 +264,9 @@ border-radius: 8px;
 #playStart .tourWrapper.active .tour.player-in-jail{
     border-color:red;
 }
+#playStart .tourWrapper.active .tour.player-in-book{
+    border-color:yellow;
+}
 #playStart .tourWrapper.active .tour,
 #inCountry .tourWrapper.active .tour{
     pointer-events: all;
@@ -264,7 +294,12 @@ border-radius: 8px;
 .col-lg-6:first-child{
       font-size: 0;
     text-align: center;
-    margin-top: 50px!important;
+
+}
+
+.col-lg-6{
+ margin-top: 50px!important;
+    min-height: 624px; 
 }
 
 #inCountry{
@@ -292,12 +327,24 @@ border-radius: 8px;
   right: 28px;
   top: 0;
 }
-
 #cardDeck button{
 font-size: 20px;
 width: 104px;
 height: 156px;
 border-radius: 10px;
+ background: green;
+ color:#fff;
+}
+#takeCard.takeCardDis{
+  display: none;
+}
+#takeCard button{
+font-size: 20px;
+width: 100%;
+height: 100px;
+border-radius: 10px;
+ background: green;
+ color:#fff;
 }
 #formDeck button{
 font-size: 20px;
@@ -371,6 +418,21 @@ background: red;
 .cat-loader.disCat{
   display: none;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .cat-loader {
