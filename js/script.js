@@ -452,20 +452,15 @@ $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function
 	var card = $('<div class="swiper-slide">');
 	card.text($(this).text());
 	card.appendTo($("#formDeck .swiper-wrapper"));
-	$(this).parent().css("margin-top",-30);
+	//$(this).parent().css("margin-top",-60);
+	$("#formTakeCard .swiper-wrapper").removeAttr('style');
+	$("#formTakeCard .swiper-wrapper .swiper-slide").removeAttr('data-swiper-column');
+	$("#formTakeCard .swiper-wrapper .swiper-slide").removeAttr('data-swiper-row');
+	$("#formTakeCard .swiper-wrapper .swiper-slide").removeAttr('style');
+	$(this).parent().removeAttr('style');
 	$(this).remove();
 
-	var swiper = new Swiper('#formTakeCard .swiper-container', {
-    slidesPerView: 3,
-      slidesPerColumn: 2,
-      spaceBetween: 60,
-    mousewheel: true,
-    resizeReInit: true,
-    navigation: {
-        nextEl: '#formTakeCard .swiper-button-next',
-        prevEl: '#formTakeCard .swiper-button-prev',
-   		 },
-	});
+	swiper2.update();
 	var cardcount = $("#cardDeck button").attr("data-count-card");
 	cardcount++;
 	$("#cardDeck button").attr("data-count-card",cardcount);
@@ -507,7 +502,12 @@ function playAudio2() {
 
 function openFormDeck() { 
     $('#formDeck').removeClass("formDeckDis");
-    var swiper = new Swiper('#formDeck .swiper-container', {
+    
+     swiper1.update();
+
+} 
+
+var swiper1 = new Swiper('#formDeck .swiper-container', {
     slidesPerView: 3,
       slidesPerColumn: 2,
       spaceBetween: 60,
@@ -518,12 +518,8 @@ function openFormDeck() {
         prevEl: '#formDeck .swiper-button-prev',
    		 },
 	});
-    
 
-} 
-function openformTakeCard() { 
-    $('#formTakeCard').removeClass("formTakeCardDis");
-    var swiper = new Swiper('#formTakeCard .swiper-container', {
+var swiper2 = new Swiper('#formTakeCard .swiper-container', {
     slidesPerView: 3,
       slidesPerColumn: 2,
       spaceBetween: 60,
@@ -534,7 +530,10 @@ function openformTakeCard() {
         prevEl: '#formTakeCard .swiper-button-prev',
    		 },
 	});
+function openformTakeCard() { 
+    $('#formTakeCard').removeClass("formTakeCardDis");
     
+     swiper2.update();
 
 } 
 function closeFormDeck() { 
