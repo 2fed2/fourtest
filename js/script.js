@@ -10,7 +10,20 @@ jQuery(document).ready(function($) {
 	}
 	var aiArray = {head: "爱",trans: "Любить",transcrip: "ài",headhier1: "爫",texthier1: " - когти [zhǎo]",headhier2: "又",texthier2: " - опять [yòu]",headhier3: "一",texthier3: " - единица [yī]",headhier4: "冖",texthier4: " - крышка [mì]",headhier5: "丿",texthier5: " - линия без перевода",hint: "Опять вцепился	когтями в сердце."};
 	var xiangArray = {head: "想",trans: "Думать, скучать, хотеть",transcrip: "xiǎng",headhier1: "木",texthier1: " - дерево [mù]",headhier2: "目",texthier2: " - глаз [mù]",headhier3: "心",texthier3: " - сердце [xīn]",hint: "Глаз дерева думает сердцем."};
-	var allHier = {ai: aiArray,xiang: xiangArray};
+	var woArray = {head: "我",trans: "Я (меня, мне)",transcrip: "wǒ",headhier1: "扌",texthier1: " - рука [shǒu]",headhier2: "戈",texthier2: " - копьё [gē]",hint: "Я держу в руке копьё."};
+	var niArray = {head: "你",trans: "Ты (тебя, тебе)",transcrip: "nǐ",headhier1: "亻",texthier1: " - человек [rén]",headhier2: "冖",texthier2: " - крышка [mì]",headhier3: "小",texthier3: " - маленький[xiǎo]",hint: "Ты не просто маленький человек под крышкой."};
+	var taArray = {head: "他",trans: "Он (его, ему)",transcrip: "tā",headhier1: "亻",texthier1: " - человек [rén]",headhier2: "也",texthier2: " - тоже [yě]",hint: "Он тоже человек."};
+	var deArray = {head: "的",trans: "Притяжательный суффикс",transcrip: "de",headhier1: "白",texthier1: " - белый [bái]",headhier2: "勺",texthier2: " - ложка [sháo]",hint: "Ложка притягивает белый рис."};
+	var maArray = {head: "吗",trans: "Частица вопросительных предложений",transcrip: "ma",headhier1: "口",texthier1: " - рот [kǒu]",headhier2: "马",texthier2: " - лошадь [mǎ]",hint: "Лошадиный рот."};
+	var yeArray = {head: "也",trans: "Тоже",transcrip: "yě",headhier1: "乚",texthier1: " - линия без перевода",headhier2: "丨",texthier2: " - линия без перевода",hint: "К сожалению, ничем помочь в запоминании не можем."};
+	var buArray = {head: "不",trans: "Не",transcrip: "bù",headhier1: "一",texthier1: " - единица [yī]",headhier2: "丨",texthier2: " - линия без перевода",headhier3: "丿",texthier3: " - линия без перевода",headhier4: "丶",texthier4: " - линия без перевода",hint: "К сожалению, ничем помочь в запоминании не можем."};
+	var chiArray = {head: "吃",trans: "Есть, кушать",transcrip: "chī",headhier1: "口",texthier1: " - рот [kǒu]",headhier2: "乞",texthier2: " - просить [qǐ]",hint: "Рот просит покушать."};
+	var haoArray = {head: "好",trans: "Хорошо",transcrip: "hǎo",headhier1: "女",texthier1: " - шаг (левой ногой) [chì]",headhier2: "子",texthier2: " - ребёнок [zǐ]",hint: "Хорошо, когда ребёнок рядом с женщиной."};
+	var henArray = {head: "很",trans: "Очень",transcrip: "hěn",headhier1: "彳",texthier1: " - женщина [nǚ]",headhier2: "艮",texthier2: " - твёрдый, крепкий [gēn]",hint: "Очень твёрдый шаг."};
+	var xieArray = {head: "谢",trans: "Благодарить",transcrip: "xiè",headhier1: "讠",texthier1: " - речь [yán]",headhier2: "寸",texthier2: " - вершок [cùn]",headhier3: "身",texthier3: " - тело (человека) [shēn]",hint: "Речь о вершине тела человека."};
+	var menArray = {head: "们",trans: "Суффикс множественного числа",transcrip: "men",headhier1: "亻",texthier1: " - человек [rén]",headhier2: "门",texthier2: " - дверь [mén]",hint: "Много людей у двери."};
+	var sheiArray = {head: "谁",trans: "Кто?",transcrip: "shéi",headhier1: "讠",texthier1: " - речь [yán]",headhier2: "隹",texthier2: " - короткохвостая птица [zhuī]",hint: "В своей речи птица спросила: Кто?"};
+	var allHier = {ai: aiArray,xiang: xiangArray,wo: woArray,ni: niArray,ta: taArray,de: deArray,ma: maArray,ye: yeArray,bu: buArray,chi: chiArray,hao: haoArray,hen: henArray,xie: xieArray,men: menArray,shei: sheiArray};
 	var arr = [1, 2, 3, 4, 5];
 	function compareRandom(a, b) {
 	  return Math.random() - 0.5;
