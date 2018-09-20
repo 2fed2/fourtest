@@ -8,13 +8,15 @@ jQuery(document).ready(function($) {
 	for (var i = 0; i < randomSummCount; i++) {
 	    randomCount.push(i);
 	}
-
+	var aiArray = {head: "爱",trans: "Любить",transcrip: "ài",headhier1: "爫",texthier1: " - когти [zhǎo]",headhier2: "又",texthier2: " - опять [yòu]"};
+	var xiangArray = {head: "想",trans: "Думать, скучать, хотеть",transcrip: "xiǎng",headhier1: "木",texthier1: " - дерево [mù]",headhier2: "目",texthier2: " - глаз [mù]"};
+	var allHier = {ai: aiArray,xiang: xiangArray};
 	var arr = [1, 2, 3, 4, 5];
 	function compareRandom(a, b) {
 	  return Math.random() - 0.5;
 	}
 	arr.sort(compareRandom);
-	console.log( arr );
+	
 
 	var classTail = [];
 
@@ -449,18 +451,30 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-book', 
 });
 
 $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function () {
-	var card = $('<div class="swiper-slide"  data-toggle="modal" data-target="#myModal" type="button" >');
+	var hier = $(this).attr("data-hierog");
+
+	var card = $('<div class="swiper-slide"  data-toggle="modal" data-target="#myModal" type="button" data-hierog="'+hier+'">');
 	card.text($(this).text());
 	card.appendTo($("#formDeck .swiper-wrapper"));
 	//$(this).parent().css("margin-top",-60);
+	
+	$(this).addClass('remove-now');
+	$(this).css('background','none');
+
+	setTimeout(function() {
 	$("#formTakeCard .swiper-wrapper").removeAttr('style');
 	$("#formTakeCard .swiper-wrapper .swiper-slide").removeAttr('data-swiper-column');
 	$("#formTakeCard .swiper-wrapper .swiper-slide").removeAttr('data-swiper-row');
 	$("#formTakeCard .swiper-wrapper .swiper-slide").removeAttr('style');
-	$(this).parent().removeAttr('style');
-	$(this).remove();
-
+	$("#formTakeCard .swiper-wrapper .swiper-slide.remove-now").remove();
 	swiper2.update();
+		if($("#formTakeCard .swiper-wrapper").children().length==0){
+			$("#takeCard").addClass("takeCardDis");
+			$("#formTakeCard").addClass("formTakeCardDis");
+		}
+	}, 350); 
+
+
 	var cardcount = $("#cardDeck button").attr("data-count-card");
 	cardcount++;
 	$("#cardDeck button").attr("data-count-card",cardcount);
@@ -468,8 +482,21 @@ $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function
 });
 
 $(document).on('click ', '#formDeck .swiper-wrapper .swiper-slide', function () {
-	$("#myModal .modal-body").text($(this).text());
-	
+	var hier = $(this).attr("data-hierog");
+	$("#myModal .modal-body .hier-header").text(allHier[hier].head);
+	$("#myModal .modal-body .hier-trans").text(allHier[hier].trans);
+	$("#myModal .modal-body .hier-transcrip").text(allHier[hier].transcrip);
+	var countTemp = 0;
+	 $("#myModal .modal-body .hier-body .hier").each(function () {
+					countTemp++;
+					var indexhead = "headhier"+countTemp;
+					$(this).find(".hier-head").text(allHier[hier][indexhead]);
+					var indextext = "texthier"+countTemp;
+					$(this).find(".hier-text").text(allHier[hier][indextext]);
+				});
+	$("#myModal .modal-body audio").attr("src","audio/"+hier+".wav");
+	hierAudio = document.getElementById("hier-audio");
+	src="audio/ai.wav"
 });
 
     var width = $(window).width();
@@ -480,18 +507,18 @@ $('head meta[name="viewport"]').attr('content','width=700px;initial-scale=1; min
     
 
 
-var x = document.getElementById("myAudio1"); 
+var hierAudio = document.getElementById("hier-audio"); 
 var y = document.getElementById("myAudio2"); 
-function playAudio1() { 
+function playAudioHier() { 
 	$('.wrapper .cat-loader').removeClass("disCat");
-	x.load();
-	y.load();
-	x.play();
-			x.onended = function() {
-				$('.wrapper .cat-loader').removeClass("disCat");
-				playAudio2();
-			};
-	x.oncanplaythrough = function() {
+	hierAudio.load();
+	//y.load();
+	hierAudio.play();
+			//x.onended = function() {
+				//$('.wrapper .cat-loader').removeClass("disCat");
+				//playAudio2();
+			//};
+	hierAudio.oncanplaythrough = function() {
            $('.wrapper .cat-loader').addClass("disCat");
       };
 } 

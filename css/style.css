@@ -474,6 +474,7 @@ background: red;
 
  .swiper-wrapper .swiper-slide{
   border-radius: 20px;
+  transition:0.3s background; 
  }
 
 
