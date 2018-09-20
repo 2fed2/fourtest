@@ -508,7 +508,13 @@ background: red;
 
 
 
+@media (min-width: 700px){
+      .modal-sm {
+          width: 500px!important;
+          margin: 10px auto!important;
+    }
 
+}
 
 
 
