@@ -8,8 +8,8 @@ jQuery(document).ready(function($) {
 	for (var i = 0; i < randomSummCount; i++) {
 	    randomCount.push(i);
 	}
-	var aiArray = {head: "爱",trans: "Любить",transcrip: "ài",headhier1: "爫",texthier1: " - когти [zhǎo]",headhier2: "又",texthier2: " - опять [yòu]"};
-	var xiangArray = {head: "想",trans: "Думать, скучать, хотеть",transcrip: "xiǎng",headhier1: "木",texthier1: " - дерево [mù]",headhier2: "目",texthier2: " - глаз [mù]"};
+	var aiArray = {head: "爱",trans: "Любить",transcrip: "ài",headhier1: "爫",texthier1: " - когти [zhǎo]",headhier2: "又",texthier2: " - опять [yòu]",headhier3: "一",texthier3: " - единица [yī]",headhier4: "冖",texthier4: " - крышка [mì]",headhier5: "丿",texthier5: " - линия без перевода",hint: "Опять вцепился	когтями в сердце."};
+	var xiangArray = {head: "想",trans: "Думать, скучать, хотеть",transcrip: "xiǎng",headhier1: "木",texthier1: " - дерево [mù]",headhier2: "目",texthier2: " - глаз [mù]",headhier3: "心",texthier3: " - сердце [xīn]",hint: "Глаз дерева думает сердцем."};
 	var allHier = {ai: aiArray,xiang: xiangArray};
 	var arr = [1, 2, 3, 4, 5];
 	function compareRandom(a, b) {
@@ -494,6 +494,7 @@ $(document).on('click ', '#formDeck .swiper-wrapper .swiper-slide', function () 
 					var indextext = "texthier"+countTemp;
 					$(this).find(".hier-text").text(allHier[hier][indextext]);
 				});
+	 $("#myModal .modal-body .hier-hint").text(allHier[hier].hint);
 	$("#myModal .modal-body audio").attr("src","audio/"+hier+".wav");
 	hierAudio = document.getElementById("hier-audio");
 	src="audio/ai.wav"

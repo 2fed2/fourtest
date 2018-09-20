@@ -449,14 +449,17 @@ background: red;
     }
 
 .playAudio{
-  width: 200px ;
-  height: 60px;
+  width: 200px;
+    height: 60px;
+    color: #fff;
+    background: green;
 }
 
 
 .wrapper{
       position: relative;
-    display: inline-block;
+        margin-top: 20px;
+    text-align: center;
 }
 
 
@@ -475,10 +478,32 @@ background: red;
  .swiper-wrapper .swiper-slide{
   border-radius: 20px;
   transition:0.3s background; 
+      font-size: 100px;
  }
 
+#myModal .modal-body .hier-header{
+      text-align: center;
+    font-size: 80px;
+        line-height: 60px;
+}
 
+#myModal .modal-body .hier-trans{
+        text-align: center;
+    font-size: 30px;
+}
 
+#myModal .modal-body .hier-transcrip{
+       text-align: center;
+    font-size: 50px;
+}
+#myModal .modal-body .hier-body{
+    font-size: 25px;
+}
+#myModal .modal-body .hier-hint{
+    font-size: 20px;
+    margin-top: 20px;
+    font-style: italic;
+}
 
 
 
