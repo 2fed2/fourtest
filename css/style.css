@@ -449,10 +449,12 @@ background: red;
     }
 
 .playAudio{
-  width: 200px;
+     width: 200px;
     height: 60px;
     color: #fff;
     background: green;
+    text-transform: uppercase;
+    font-size: 20px;
 }
 
 
@@ -462,7 +464,13 @@ background: red;
     text-align: center;
 }
 
-
+#myModal .btn-default {
+    color: #fff!important;
+    background-color: red!important;
+    text-transform: uppercase;
+    font-size: 20px!important;
+    border: none;
+}
 
 .cat-loader.disCat{
   display: none;
@@ -484,7 +492,6 @@ background: red;
 #myModal .modal-body .hier-header{
       text-align: center;
     font-size: 80px;
-        line-height: 60px;
 }
 
 #myModal .modal-body .hier-trans{
