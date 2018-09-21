@@ -642,6 +642,7 @@ $(document).on('click ', '#button-check', function () {
 					$('#infogame h2').text('Поздравлем! Предложение собрано верно. Если хотите его прослушать, жмите ПРОСЛУШАТЬ. Или выходите из задания.');
 					$('#playStart .tourWrapper.active .tour.active').removeClass('player-in-book');
 					$('#playStart .tourWrapper.active .tour.active').click();
+					$('#playStart .tourWrapper.active .tour.active').attr("data-task","");
 					$('#playStart .tourWrapper.active .tour.active span').text("+"+$('#playStart .tourWrapper.active .tour.active').attr("data-step"));
 					var lisBut = $('<button type="button" id="button-lis">');
 						lisBut.text("Прослушать");
