@@ -24,6 +24,15 @@ jQuery(document).ready(function($) {
 	var menArray = {head: "们",trans: "Суффикс множественного числа",transcrip: "men",headhier1: "亻",texthier1: " - человек [rén]",headhier2: "门",texthier2: " - дверь [mén]",hint: "Много людей у двери."};
 	var sheiArray = {head: "谁",trans: "Кто?",transcrip: "shéi",headhier1: "讠",texthier1: " - речь [yán]",headhier2: "隹",texthier2: " - короткохвостая птица [zhuī]",hint: "В своей речи птица спросила: Кто?"};
 	var allHier = {ai: aiArray,xiang: xiangArray,wo: woArray,ni: niArray,ta: taArray,de: deArray,ma: maArray,ye: yeArray,bu: buArray,chi: chiArray,hao: haoArray,hen: henArray,xie: xieArray,men: menArray,shei: sheiArray};
+
+
+	var threeArray = [
+			["Я люблю тебя.",3,123],
+			["Я люблю тебя?",4,1234]
+		];
+	var threeArrayRand = threeArray.slice().sort(compareRandom);
+
+
 	var arr = [1, 2, 3, 4, 5];
 	function compareRandom(a, b) {
 	  return Math.random() - 0.5;
@@ -99,7 +108,7 @@ buttonStart.appendTo('#infogame .infogame-but');
 var tourist = ['one','two','three','four'];
 for (var i = 0; i < tourist.length; i++) {
    		var imgTour = $('<div class="tourWrapper">');
-		var tour = $('<div class="tour">');
+		var tour = $('<div class="tour" data-task="">');
 		var step = $('<span>');
 		var statejail = $('<div  class="tour-state-in-jail">');
 		var statebook = $('<div  class="tour-state-in-book">');
@@ -128,17 +137,93 @@ function allowedTail(obj,x,y,z1,z2) {
 		     	    }
 }
 function playerInBook(text,count) {
+
 				$('#infogame .infogame-but button').remove();
 				$('#infogame h2').text(text);
-				var buttonStart = $('<button type="button" id="button-construct">');
-				buttonStart.attr('data-step',count);
-				buttonStart.text("СОБРАTЬ ПРЕДЛОЖЕНИЕ")
-				buttonStart.appendTo('#infogame .infogame-but');
+				var buttonCostruct = $('<button type="button" id="button-construct">');
+				buttonCostruct.attr('data-step',count);
+				buttonCostruct.text("СОБРАTЬ ПРЕДЛОЖЕНИЕ");
+				
 	        	stepcount = 0;
-	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',count);
-	        	$('#playStart .tourWrapper.active .tour.active').addClass("player-in-book");
 	        	$('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount);
+	        	if($('#playStart .tourWrapper.active .tour.active').attr('data-task')==""){
+	        		if(count==3*1){
+	        			if(threeArrayRand.length == 0){
+	        				threeArrayRand = threeArray.slice().sort(compareRandom);
+	        				console.log( threeArrayRand);
+	        			}
+	        			
+		        		var task =	threeArrayRand[0];
+		        		$('#playStart .tourWrapper.active .tour.active').attr('data-task',task[0]);
+		        		$('#playStart .tourWrapper.active .tour.active').attr('data-task-count',task[1]);
+		        		threeArrayRand.splice(0, 1);
+		        		console.log( threeArray);
+		        	}
+	        	}
+	        	buttonCostruct.attr('data-task',$('#playStart .tourWrapper.active .tour.active').attr('data-task'));
+	        	buttonCostruct.attr('data-task-count',$('#playStart .tourWrapper.active .tour.active').attr('data-task-count'));
+	        	buttonCostruct.appendTo('#infogame .infogame-but');
 }
+
+$(document).on('click ', '#button-construct', function () {
+
+				
+				if($('#formDeck .swiper-wrapper').children().length>= $(this).attr("data-task-count")){
+				    	$('#formDeck').removeClass("formDeckDis");
+				    	$('#formDeck').addClass("inTask");
+				    	$('#formDeck .swiper-slide').attr("data-target","");
+				    	swiper1.update();
+				    	$('#formDeck>button').css("display","none");
+							$('#infogame h2').text("Кликайте по иероглифам в вашей колоде, чтобы собрать предложение. Чтобы заменить иероглиф, кликните по нему в предложении. Некоторые иероглифы могут использоваться два раза в предложении. ВНИМАНИЕ! Если вы отправите на проверку неправильно собранное предложение, вы лишитесь одной карточки с иероглифом. Если сомневаетесь жмите на кнопку ВЫЙТИ ИЗ ЗАДАНИЯ.");
+							
+							$('#takeCard button').remove();
+							var exitTask = $('<button type="button" id="button-exitTask">');
+							exitTask.text("Выйти из задания");
+							exitTask.appendTo('#takeCard');
+							var buttonCheck = $('<button type="button" id="button-check">');
+							buttonCheck.text("ПРОВЕРИТЬ");
+							var taskText = $('<h3>');
+							taskText.text($(this).attr("data-task"));
+							taskText.appendTo('#infogame .infogame-task');
+							var valCheck;
+								for (var i = 0; i < threeArray.length; i++) {
+								    if (threeArray[i][0]==$(this).attr("data-task")){
+								    	valCheck=threeArray[i][2];
+								    }
+								}
+								buttonCheck.attr('data-check',valCheck);
+								buttonCheck.attr('data-task-count',$(this).attr("data-task-count"));
+								var card = $('<div class="task-card empty">');
+								for (var i = 0; i < $(this).attr("data-task-count"); i++) {
+								    $('#infogame .infogame-task').append(card.clone());
+								}
+
+						$('#infogame .infogame-but button').remove();
+						buttonCheck.appendTo('#infogame .infogame-but');
+				    }
+				    else{
+				    	$('#infogame h2').text("У вас не хватает карт, чтобы собрать предложение. Жмите на кнопку ВЗЯТЬ КАРТУ.");
+				    }
+				
+				
+				
+	    });
+$(document).on('click ', '#button-exitTask', function () {
+			$('#formDeck>button').removeAttr("style");
+			$('#formDeck').addClass("formDeckDis");
+			$('#takeCard button').remove();
+			var takeCardBut = $('<button onclick="openformTakeCard()" type="button">');
+							takeCardBut.text("Взять карту");
+							takeCardBut.appendTo('#takeCard');
+			$('#playStart .tourWrapper.active .tour.active').click();
+			$('#infogame .infogame-task').empty();
+			$('#formDeck').removeClass("inTask");
+			$('#formDeck .swiper-slide').attr("data-target","#myModal");
+			$('#infogame h2').text('');
+	    });	
+
+
+
 
 $(document).on('click ', '.tail-start', function () {
 	$(this).addClass("selected");
@@ -244,13 +329,19 @@ $('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount
 			$(this).addClass('turnover');
 	        $(this).addClass(classTail[$(this).parent().index()-1]);
 	        if($(this).hasClass("tail-one")){
-	        	playerInBook('Собрав правильно предложение, турист сможет сделать 1 шаг. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',1);
+	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',3);
+
+	        	$('#playStart .tourWrapper.active .tour.active').addClass("player-in-book");
 	        }
 	        if($(this).hasClass("tail-two")){
-	        	playerInBook('Собрав правильно предложение, турист сможет сделать 2 шага. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',2);
+	        	
+	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',3);
+	        	$('#playStart .tourWrapper.active .tour.active').addClass("player-in-book");
 	        }
 	        if($(this).hasClass("tail-three")){
-	        	playerInBook('Собрав правильно предложение, турист сможет сделать 3 шага. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',3);
+	        	
+	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',3);
+	        	$('#playStart .tourWrapper.active .tour.active').addClass("player-in-book");
 	        }
 	        if($(this).hasClass("tail-jail")){
 
@@ -291,7 +382,7 @@ $('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount
 
 			$('#playStart .tourWrapper.active .tour.active').parent().css({left:$(this).offset().left-$("#playStart").offset().left,top:$(this).offset().top-$("#playStart").offset().top});
 	      $('#playStart .tourWrapper.active .tour.active').addClass("click-player");
-	      $('#playStart .tourWrapper.active .tour').removeClass("active");
+	      //$('#playStart .tourWrapper.active .tour').removeClass("active");
 		$('#playingField .tailWrapper .tail').removeClass("allowed");
 
 		if(!tourView==""){
@@ -450,8 +541,8 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-book', function () {
 	$('#playerTail .tourWrapper').remove();
 		$(this).parent().clone().appendTo('#playerTail');
-				$('#playStart .tourWrapper.active .tour').removeClass("active");
-				$('#inCountry .tourWrapper.active .tour').removeClass("active");
+		$('#playStart .tourWrapper.active .tour').removeClass("active");
+				$(this).addClass("active");
 				if($(this).attr('data-step')==1){
 		        	playerInBook('Собрав правильно предложение, турист сможет сделать 1 шаг. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',1);
 		        }
@@ -461,12 +552,14 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-book', 
 		        if($(this).attr('data-step')==3){
 		        	playerInBook('Собрав правильно предложение, турист сможет сделать 3 шага. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',3);
 		        }
+		        //$('#playStart .tourWrapper.active .tour').removeClass("active");
+				$('#inCountry .tourWrapper.active .tour').removeClass("active");
 });
 
 $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function () {
 	var hier = $(this).attr("data-hierog");
-
-	var card = $('<div class="swiper-slide"  data-toggle="modal" data-target="#myModal" type="button" data-hierog="'+hier+'">');
+	var valHier = $(this).attr("data-val");
+	var card = $('<div class="swiper-slide"  data-toggle="modal" data-target="#myModal" type="button" data-hierog="'+hier+'" data-val="'+valHier+'">');
 	card.text($(this).text());
 	card.appendTo($("#formDeck .swiper-wrapper"));
 	//$(this).parent().css("margin-top",-60);
@@ -494,7 +587,7 @@ $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function
 	$("#cardDeck button span").text(cardcount);
 });
 
-$(document).on('click ', '#formDeck .swiper-wrapper .swiper-slide', function () {
+$(document).on('click ', '#formDeck:not(.inTask) .swiper-wrapper .swiper-slide', function () {
 	var hier = $(this).attr("data-hierog");
 	$("#myModal .modal-body .hier-header").text(allHier[hier].head);
 	$("#myModal .modal-body .hier-trans").text(allHier[hier].trans);
@@ -508,11 +601,59 @@ $(document).on('click ', '#formDeck .swiper-wrapper .swiper-slide', function () 
 					$(this).find(".hier-text").text(allHier[hier][indextext]);
 				});
 	 $("#myModal .modal-body .hier-hint").text(allHier[hier].hint);
-	$("#myModal .modal-body audio").attr("src","audio/"+hier+".wav");
+	$("#myModal .modal-body audio").attr("src","audio/"+hier+".mp3");
 	hierAudio = document.getElementById("hier-audio");
-	src="audio/ai.wav"
+	
 });
-
+$(document).on('click ', '#formDeck.inTask .swiper-wrapper .swiper-slide', function () {
+	
+	var count = 0;
+	$("#infogame .infogame-task .task-card.empty").each(function () {
+				count++;
+					if(count==1){
+						$(this).addClass("thisIs");
+						
+					}	
+				});
+	$(this).clone().appendTo('#infogame .infogame-task .task-card.empty.thisIs');	
+	$('#infogame .infogame-task .task-card.empty.thisIs').removeClass("empty");
+	$('#infogame .infogame-task .task-card.thisIs').removeClass("thisIs");
+	
+});
+$(document).on('click ', '#infogame .infogame-task .task-card:not(empty)', function () {
+	
+	$(this).empty();
+	$(this).addClass("empty");
+});
+$(document).on('click ', '#button-check', function () {
+			var count = 0;
+			var answer = "";
+			$("#infogame .infogame-task .task-card.empty").each(function () {
+				count++;	
+				});
+			if(count>=1){
+						$('#infogame h2').text('Вы собрали не все предложение! Жмите на карты в своей колоде, чтобы собрать его.');
+					}
+			else{
+				$("#infogame .infogame-task .task-card .swiper-slide").each(function () {
+						answer = answer + $(this).attr('data-val');
+				});
+				if (answer==$(this).attr('data-check')){
+					$('#infogame h2').text('Поздравлем! Предложение собрано верно. Если хотите его прослушать, жмите ПРОСЛУШАТЬ. Или выходите из задания.');
+					$('#playStart .tourWrapper.active .tour.active').removeClass('player-in-book');
+					$('#playStart .tourWrapper.active .tour.active').click();
+					$('#playStart .tourWrapper.active .tour.active span').text("+"+$('#playStart .tourWrapper.active .tour.active').attr("data-step"));
+					var lisBut = $('<button type="button" id="button-lis">');
+						lisBut.text("Прослушать");
+						lisBut.attr('data-task-count',$(this).attr("data-task-count"));
+						lisBut.appendTo('#infogame .infogame-task');
+				}
+				else{
+					$('#infogame h2').text('Предложение собрано неверно! Выходите из задания.');
+				}
+			}
+			
+	    });	
     var width = $(window).width();
  if (width < 1000 ) {
 $('head meta[name="viewport"]').attr('content','width=700px;initial-scale=1; minimum-scale=1; maximum-scale=1;user-scalable=no;');
@@ -548,6 +689,13 @@ function playAudio2() {
 
 function openFormDeck() { 
     $('#formDeck').removeClass("formDeckDis");
+    $('#formTakeCard').addClass("formTakeCardDis");
+    if($('#formDeck .swiper-wrapper').children().length==0){
+    	$('#infogame h2').text('У вас пока что нет ни одной карты с иероглифом. Возьмите свою первую карту!');
+    }
+    else{
+    	$('#infogame h2').text('Кликните по карте, чтобы изучить подробную информацию об иероглифе!');
+    }
     
      swiper1.update();
 
@@ -578,7 +726,7 @@ var swiper2 = new Swiper('#formTakeCard .swiper-container', {
 	});
 function openformTakeCard() { 
     $('#formTakeCard').removeClass("formTakeCardDis");
-    
+    $('#formDeck').addClass("formDeckDis");
      swiper2.update();
 
 } 
