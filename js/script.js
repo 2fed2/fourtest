@@ -207,6 +207,9 @@ $(document).on('click ', '#button-construct', function () {
 
 						$('#infogame .infogame-but button').remove();
 						buttonCheck.appendTo('#infogame .infogame-but');
+						if (width < 1000 ) {
+						 $('html, body').animate({scrollTop: $('#infogame').offset().top}, 500);
+						 }
 				    }
 				    else{
 				    	showH("Не хватает карт!","red");
@@ -230,7 +233,10 @@ $(document).on('click ', '#button-exitTask', function () {
 			$('#infogame .infogame-task').empty();
 			$('#formDeck').removeClass("inTask");
 			$('#formDeck .swiper-slide').attr("data-target","#myModal");
-			$('#infogame h2').text('');
+			//$('#infogame h2').text('');
+			 if (width < 1000 ) {
+				 $('html, body').animate({scrollTop: $('body').offset().top}, 500);
+				 }
 	    });	
 
 
@@ -687,11 +693,28 @@ $(document).on('click ', '#button-check', function () {
 					$('#playStart .tourWrapper.active .tour.active').removeClass('player-in-book');
 					$('#playStart .tourWrapper.active .tour.active').click();
 					$('#playStart .tourWrapper.active .tour.active').attr("data-task","");
+					var countAudio = 0;
+					$('#infogame .infogame-task .task-card').each(function () {
+						countAudio++;
+						var idAudio = "hier-audio" + countAudio;
+					        var srcAudio = $(this).find(".swiper-slide").attr("data-hierog");
+					        var audioPlay =  $('<audio>');
+					        audioPlay.attr("id",idAudio)
+					        var audioSource  = $('<source preload="none">');
+					        audioSource.attr("src","audio/"+srcAudio+".wav");
+					        audioSource.appendTo(audioPlay);
+					        audioPlay.appendTo($('#infogame .infogame-task'));
+					    });
 					$('#playStart .tourWrapper.active .tour.active span').text("+"+$('#playStart .tourWrapper.active .tour.active').attr("data-step"));
-					var lisBut = $('<button type="button" id="button-lis">');
+					var lisButWrap = $('<div class="wrapper">');
+					var lisButCat = $('<div class="cat-loader disCat">');
+					var lisBut = $('<button type="button" onclick="playAudioPhrase('+$(this).attr("data-task-count")+')">');
 						lisBut.text("Прослушать");
 						lisBut.attr('data-task-count',$(this).attr("data-task-count"));
-						lisBut.appendTo('#infogame .infogame-task');
+						
+					lisButCat.appendTo(lisButWrap);
+					lisBut.appendTo(lisButWrap);
+					lisButWrap.appendTo('#infogame .infogame-task');
 				}
 				else{
 					//$('#infogame h2').text('Предложение собрано неверно! Выходите из задания.');
@@ -704,6 +727,7 @@ $(document).on('click ', '#button-check', function () {
     var width = $(window).width();
  if (width < 1000 ) {
 $('head meta[name="viewport"]').attr('content','width=700px;initial-scale=1; minimum-scale=1; maximum-scale=1;user-scalable=no;');
+
  }
 
 
@@ -729,6 +753,79 @@ function playAudioHier() {
       };
 } 
 
+function playAudioPhrase(count) { 
+	if (count == 4){
+			var hierAudio1 = document.getElementById("hier-audio1"); 
+			var hierAudio2 = document.getElementById("hier-audio2"); 
+			var hierAudio3 = document.getElementById("hier-audio3"); 
+			var hierAudio4 = document.getElementById("hier-audio4");  
+			$('.wrapper .cat-loader').removeClass("disCat");
+			hierAudio1.load();
+			hierAudio2.load();
+			hierAudio3.load();
+			hierAudio4.load();
+			hierAudio1.play();
+					hierAudio1.onended = function() {
+						$('.wrapper .cat-loader').removeClass("disCat");
+						hierAudio2.load();
+						hierAudio2.play();
+						hierAudio2.oncanplaythrough = function() {
+					           $('.wrapper .cat-loader').addClass("disCat");
+					      };
+							 hierAudio2.onended = function() {
+								$('.wrapper .cat-loader').removeClass("disCat");
+								hierAudio3.load();
+								hierAudio3.play();
+								hierAudio3.oncanplaythrough = function() {
+							           $('.wrapper .cat-loader').addClass("disCat");
+							      };
+							      hierAudio3.onended = function() {
+										$('.wrapper .cat-loader').removeClass("disCat");
+										hierAudio4.load();
+										hierAudio4.play();
+										hierAudio4.oncanplaythrough = function() {
+									           $('.wrapper .cat-loader').addClass("disCat");
+									      };
+									};
+							};
+					};
+			hierAudio1.oncanplaythrough = function() {
+		           $('.wrapper .cat-loader').addClass("disCat");
+		      };
+	}
+	
+
+	if (count == 3){
+			var hierAudio1 = document.getElementById("hier-audio1"); 
+			var hierAudio2 = document.getElementById("hier-audio2"); 
+			var hierAudio3 = document.getElementById("hier-audio3"); 
+			var hierAudio4 = document.getElementById("hier-audio4");  
+			$('.wrapper .cat-loader').removeClass("disCat");
+			hierAudio1.load();
+			hierAudio2.load();
+			hierAudio3.load();
+			hierAudio1.play();
+					hierAudio1.onended = function() {
+						$('.wrapper .cat-loader').removeClass("disCat");
+						hierAudio2.load();
+						hierAudio2.play();
+						hierAudio2.oncanplaythrough = function() {
+					           $('.wrapper .cat-loader').addClass("disCat");
+					      };
+							 hierAudio2.onended = function() {
+								$('.wrapper .cat-loader').removeClass("disCat");
+								hierAudio3.load();
+								hierAudio3.play();
+								hierAudio3.oncanplaythrough = function() {
+							           $('.wrapper .cat-loader').addClass("disCat");
+							      };
+							};
+					};
+			hierAudio1.oncanplaythrough = function() {
+		           $('.wrapper .cat-loader').addClass("disCat");
+		      };
+	}
+} 
 
 function playAudio2() { 
 	y.load();
@@ -797,6 +894,10 @@ var swiper2 = new Swiper('#formTakeCard .swiper-container', {
 function openformTakeCard() { 
     $('#formTakeCard').removeClass("formTakeCardDis");
     $('#formDeck').addClass("formDeckDis");
+    var width = $(window).width();
+ if (width < 1000 ) {
+ $('html, body').animate({scrollTop: $('#infogame').offset().top}, 500);
+ }
      swiper2.update();
 
 } 
@@ -804,5 +905,9 @@ function closeFormDeck() {
     $('#formDeck').addClass("formDeckDis");
 } 
 function formTakeCard() { 
+	 var width = $(window).width();
+ if (width < 1000 ) {
+ $('html, body').animate({scrollTop: $('body').offset().top}, 500);
+ }
     $('#formTakeCard').addClass("formTakeCardDis");
 } 
