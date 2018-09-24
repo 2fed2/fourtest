@@ -99,7 +99,9 @@ createTale(tailJail,'tail-jail');
 
 
 
-$('#infogame h2').text('Выберите стартовые позиции для 4 туристов и начните путешествие!(кликнуть по желтым квадратам)');
+modalWithBut("Выберите стартовые позиции для 4 туристов и начните путешествие! (кликнуть по желтым квадратам)","before-start","Игра начинается с выбора стартовых позиций для туриста. Для этого нужно кликать по желтым квадратам.");
+
+
 
 function startPosTour() {
 var buttonStart = $('<button type="button" class="button-hidden" id="button-start">');
@@ -125,6 +127,11 @@ function restartPosTour() {
 	var buttonStart = $('<button type="button"  id="button-restart">');
 		buttonStart.text("НАЧАТЬ ЗАНОВО")
 		buttonStart.appendTo('#infogame .infogame-but');
+		$('#takeCard button').remove();
+		$('#playerTail').empty();
+		$('#formDeck .swiper-wrapper').empty();
+		$("#cardDeck button").attr("data-count-card",0);
+			$("#cardDeck button span").text(0);
 		 $("#playStart").attr('style','opacity:0;pointer-events:none;');
 		 $("#inCountry .tourWrapper").remove();
 		$("#playingField").attr('style','opacity:0;pointer-events:none;');
@@ -136,10 +143,10 @@ function allowedTail(obj,x,y,z1,z2) {
 			        	obj.find(".tail").addClass("allowed");	
 		     	    }
 }
-function playerInBook(text,count) {
+function playerInBook(text,count,text2) {
 
 				$('#infogame .infogame-but button').remove();
-				$('#infogame h2').text(text);
+				//$('#infogame h2').text(text);
 				var buttonCostruct = $('<button type="button" id="button-construct">');
 				buttonCostruct.attr('data-step',count);
 				buttonCostruct.text("СОБРАTЬ ПРЕДЛОЖЕНИЕ");
@@ -152,7 +159,7 @@ function playerInBook(text,count) {
 	        				threeArrayRand = threeArray.slice().sort(compareRandom);
 	        				console.log( threeArrayRand);
 	        			}
-	        			
+	        			 modalWithBut(text,"player-in-book-3",text2)
 		        		var task =	threeArrayRand[0];
 		        		$('#playStart .tourWrapper.active .tour.active').attr('data-task',task[0]);
 		        		$('#playStart .tourWrapper.active .tour.active').attr('data-task-count',task[1]);
@@ -174,8 +181,8 @@ $(document).on('click ', '#button-construct', function () {
 				    	$('#formDeck .swiper-slide').attr("data-target","");
 				    	swiper1.update();
 				    	$('#formDeck>button').css("display","none");
-							$('#infogame h2').text("Кликайте по иероглифам в вашей колоде, чтобы собрать предложение. Чтобы заменить иероглиф, кликните по нему в предложении. Некоторые иероглифы могут использоваться два раза в предложении. ВНИМАНИЕ! Если вы отправите на проверку неправильно собранное предложение, вы лишитесь одной карточки с иероглифом. Если сомневаетесь жмите на кнопку ВЫЙТИ ИЗ ЗАДАНИЯ.");
-							
+							//$('#infogame h2').text("");
+							modalWithBut("Кликайте по иероглифам в вашей колоде, чтобы собрать предложение. Чтобы заменить иероглиф, кликните по нему в предложении. Некоторые иероглифы могут использоваться два раза в предложении. ВНИМАНИЕ! Если вы отправите на проверку неправильно собранное предложение, вы лишитесь одной карточки с иероглифом. Если сомневаетесь жмите на кнопку ВЫЙТИ ИЗ ЗАДАНИЯ.","construct","Чтобы собрать предложение, кликайте по иероглифам в вашей колоде. Чтобы заменить иероглиф, кликните по нему в предложении. Некоторые иероглифы могут использоваться два раза в предложении. ВНИМАНИЕ! Если вы отправите на проверку неправильно собранное предложение, вы лишитесь одной карточки с иероглифом. Если сомневаетесь жмите на кнопку ВЫЙТИ ИЗ ЗАДАНИЯ.");
 							$('#takeCard button').remove();
 							var exitTask = $('<button type="button" id="button-exitTask">');
 							exitTask.text("Выйти из задания");
@@ -202,7 +209,8 @@ $(document).on('click ', '#button-construct', function () {
 						buttonCheck.appendTo('#infogame .infogame-but');
 				    }
 				    else{
-				    	$('#infogame h2').text("У вас не хватает карт, чтобы собрать предложение. Жмите на кнопку ВЗЯТЬ КАРТУ.");
+				    	showH("Не хватает карт!","red");
+				    	//$('#infogame h2').text("У вас не хватает карт, чтобы собрать предложение. Жмите на кнопку ВЗЯТЬ КАРТУ.");
 				    }
 				
 				
@@ -215,6 +223,9 @@ $(document).on('click ', '#button-exitTask', function () {
 			var takeCardBut = $('<button onclick="openformTakeCard()" type="button">');
 							takeCardBut.text("Взять карту");
 							takeCardBut.appendTo('#takeCard');
+							var regulBut = $('<button type="button" data-toggle="modal" data-target="#modal-regul" type="button">');
+							regulBut.text("Правила");
+							regulBut.appendTo('#takeCard');
 			$('#playStart .tourWrapper.active .tour.active').click();
 			$('#infogame .infogame-task').empty();
 			$('#formDeck').removeClass("inTask");
@@ -237,7 +248,8 @@ $(document).on('click ', '.tail-start', function () {
 	        $('#infogame .infogame-pic .tourWrapper:first-child').clone().css({left:leftMain,top:topMain}).appendTo('#playStart');	
 	        $('#infogame .infogame-pic .tourWrapper:first-child').remove();
 	        if($('#infogame .infogame-pic').children().length == 0 ){
-	        	$('#infogame h2').text('Нажимайте СТАРТ и начините путешествие!');
+	        	showH("Жмите СТАРТ!","green")
+	        	//$('#infogame h2').text('Жмите СТАРТ!');
 	        	$('#button-start').removeClass("button-hidden");
 	        }
 	    });	
@@ -246,8 +258,14 @@ $(document).on('click ', '.tail-start', function () {
 	      $('#playingField').removeClass("playingFieldDis");
 	      $('#takeCard').removeClass("takeCardDis");
 	      $(this).remove();
+	      var takeCardBut = $('<button onclick="openformTakeCard()" type="button">');
+							takeCardBut.text("Взять карту");
+							takeCardBut.appendTo('#takeCard');
+							var regulBut = $('<button type="button" data-toggle="modal" data-target="#modal-regul" type="button">');
+							regulBut.text("Правила");
+							regulBut.appendTo('#takeCard');
 	      $("#playStart .tourWrapper").addClass("active");
-	      $('#infogame h2').text('Выберите путешественника и ходите на выделенное поле.');
+	      modalWithBut('Выберите туриста и ходите на квадраты, выделенные зеленой рамкой. Доберитесь до центра поля, чтобы попасть в страну!',"start","Ходить можно только на квадраты, обведенные зеленой рамкой. Цель - дойти до центра поля.");
 	      $("#playStart .tourWrapper.active .tour:not(.player-in-jail)").each(function () {
 					stepcount = 1;
 					$(this).attr('data-step',stepcount);
@@ -262,7 +280,6 @@ $(document).on('click ', '.tail-start', function () {
 		$(this).parent().clone().appendTo('#playerTail');
 		$('#infogame .infogame-but button').remove();
 		if(!$(this).hasClass("onField")){
-			$('#infogame h2').text('Сделайте первый ход на квадрат в зеленой рамке.');
         	$(this).addClass("onField");
         }
 		$('#playStart .tourWrapper.active .tour').removeClass("active");
@@ -330,7 +347,6 @@ $('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount
 	        $(this).addClass(classTail[$(this).parent().index()-1]);
 	        if($(this).hasClass("tail-one")){
 	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',3);
-
 	        	$('#playStart .tourWrapper.active .tour.active').addClass("player-in-book");
 	        }
 	        if($(this).hasClass("tail-two")){
@@ -348,10 +364,12 @@ $('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount
 	        	jailcount++;
 	        	if(jailcount<4){
 	        		if(jailcount+incountrytcount==4){
-	        			$('#infogame h2').text('Верните из страны одного путешественника, чтобы освободить другого из тюрьмы. Кликните по путешевтвеннику, который уже в стране.');
+	        			//$('#infogame h2').text('Верните из страны одного путешественника, чтобы освободить другого из тюрьмы. Кликните по путешевтвеннику, который уже в стране.');
+	        			modalWithBut('Верните из страны одного путешественника, чтобы освободить другого из тюрьмы. Кликните по путешевтвеннику, который уже в стране.',"all-in-jail-and-country",'Если некоторые туристы уже добрались до страны, а остальные в тюрьме, верните из страны одного туриста, чтобы освободить другого из тюрьмы. Кликните по путешевтвеннику, который уже в стране.');
+	        			showH("Верните из страны!","red");
 	        		}
 	        		else{
-	        			$('#infogame h2').text('Путешественник попал в тюрьму и пока ходить не может. Встаньте другим путешественником на его квадрат, чтобы освободить его.');
+	        			//$('#infogame h2').text('Путешественник попал в тюрьму и пока ходить не может. Встаньте другим путешественником на его квадрат, чтобы освободить его.');
 	        		}
 	        		
 
@@ -360,13 +378,17 @@ $('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount
 	        		jailcount=0;
 	        		restartcount++;
 	        		if(restartcount<4){
-	        			$('#infogame h2').text('Все ваши путешественники попали в тюрьму. Скорее раставляйте их на оставшиеся стартовые позиции и продолжайте путешествие!');
+	        			//$('#infogame h2').text('Все ваши путешественники попали в тюрьму. Скорее раставляйте их на оставшиеся стартовые позиции и продолжайте путешествие!');
+	        			modalWithBut('Все ваши путешественники попали в тюрьму. Скорее раставляйте их на оставшиеся стартовые позиции и продолжайте путешествие!',"all-in-jail",'Если все туристы попали в тюрьму, можно расставить их на оставшиеся стартовые позиции и продолжить путешествие.');
+	        			showH("Все в тюрьме!","red");
 	        			startPosTour();
 					      $('#playingField').addClass("playingFieldDis");
 					      $("#playStart .tourWrapper").remove();
 	        		}
 	        		else{
-	        			$('#infogame h2').text('К сожалению вы исчерпали все возможные стартовые позиции. Хотите начать заново?');	
+	        			$('#infogame h2').text('К сожалению вы исчерпали все возможные стартовые позиции. Хотите начать заново?');
+	        			modalWithBut('К сожалению вы исчерпали все возможные стартовые позиции. Хотите начать заново?',"restart-pos",'Если закончились все стартовые позиции, вы проигрываете.');	
+	        			showH("Вы проиграли!","red");
 	        			restartPosTour();
 	        		}
 	        	}
@@ -426,16 +448,22 @@ $(document).on('click ', '#playingField .tailWrapper.center .tail.allowed', func
 			$('#playStart .tourWrapper.active .tour.active').parent().attr('style','opacity:0;pointer-events:none;left:'+($(this).offset().left-$("#playStart").offset().left+26)+'px;top:'+($(this).offset().top-$("#playStart").offset().top+26)+'px;transition: 2s all;');
 	if(incountrytcount<4){
 		if(jailcount+incountrytcount==4){
-	        			$('#infogame h2').text('Верните из страны одного путешественника, чтобы освободить другого из тюрьмы. Кликните по путешевтвеннику, который уже в стране.');
+	        			//$('#infogame h2').text('Верните из страны одного путешественника, чтобы освободить другого из тюрьмы. Кликните по путешевтвеннику, который уже в стране.');
+	        			modalWithBut('Верните из страны одного путешественника, чтобы освободить другого из тюрьмы. Кликните по путешевтвеннику, который уже в стране.',"all-in-jail-and-country",'Если некоторые туристы уже добрались до страны, а остальные в тюрьме, верните из страны одного туриста, чтобы освободить другого из тюрьмы. Кликните по путешевтвеннику, который уже в стране.');
+	        			showH("Верните из страны!","red");
 	        		}
 	        		else{
-	        			$('#infogame h2').text('Поздравляем! Ваш турист добрался до страны! Не забудьте про остальных!');
+	        			//$('#infogame h2').text('Поздравляем! Ваш турист добрался до страны! Не забудьте про остальных!');
+	        			modalWithBut('Поздравляем! Ваш турист добрался до страны! Не забудьте про остальных!',"in-country",'Если турист дошел до центра поля, значит он добрался до страны.');
+	        			showH("Ура! Я добрался!","green");
 	        		}
 			
 	}
 	else{
 		incountrytcount=0;
 		$('#infogame h2').text('Поздравляем! Все ваши туристы добрались до страны! Хотите сыграть еше раз?');
+		modalWithBut('Поздравляем! Все ваши туристы добрались до страны! Хотите сыграть еше раз?',"all-in-country",'Если все туристы добралисьдо страны, значит, вы победили и можете сыграть еще раз.');
+	        			showH("Ура! Все добрались!","green");
 		restartPosTour();
 	}
 			
@@ -448,7 +476,9 @@ $(document).on('click ', '#inCountry .tourWrapper.active .tour', function () {
 		$(this).parent().clone().appendTo('#playerTail');
 $('#infogame .infogame-but button').remove();
 		tourView = $(this).attr("data-view");
-		$('#infogame h2').text('Если хотите вывести путешественника из страны, то просто ступайте на один из выделенных квадратов!');
+		//$('#infogame h2').text('Если хотите вывести путешественника из страны, то просто ступайте на один из выделенных квадратов!');
+		modalWithBut('Если хотите вывести путешественника из страны, то просто ступайте на один из выделенных квадратов!',"out-country",'Если вам нужно вывести путшественника из страны, ступайте на любой из выделенных квдратов.');
+	        			showH("Надеюсь, я скоро вернусь!","yellow");
 		$('#playStart .tourWrapper.active .tour').removeClass("active");
 		$('#inCountry .tourWrapper.active .tour').removeClass("active");
 		$('#playingField .tailWrapper .tail').removeClass("allowed");
@@ -475,7 +505,9 @@ $(document).on('click ', '#button-restart', function () {
 			createTale(tailThree,'tail-three');
 			createTale(tailJail,'tail-jail');
 			$(this).remove();
-			$('#infogame h2').text('Выберите стартовые позиции для 4 туристов и начните путешествие!(кликнуть по желтым квадратам)');
+			//$('#infogame h2').text('Выберите стартовые позиции для 4 туристов и начните путешествие!(кликнуть по желтым квадратам)');
+
+	        			showH("Игра скоро начнется!","green");
 			startPosTour();
 			 $('#playingField').addClass("playingFieldDis");
 			 $('.tail-start').removeClass("selected");
@@ -489,10 +521,11 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 	$('#infogame .infogame-but button').remove();
 		var topPlayerJail = $(this).parent().offset().top;
 	     var leftPlayerJail = $(this).parent().offset().left;
-	     $('#infogame h2').text('Из тюрьмы можно освободить, только встав на эту клетку последним ходом туриста. (перед тем как встать на квадрат, у туриста должен оставаться один ход)');
+	   //  $('#infogame h2').text('');
 		$('#playStart .tourWrapper.active .tour').removeClass("player-in-jail-now");
 			$(this).addClass("player-in-jail-now");
-
+modalWithBut("Из тюрьмы можно освободить, только встав на эту клетку последним ходом туриста. (перед тем как встать на квадрат, у туриста должен оставаться один ход)","complite","Из тюрьмы можно освободить, только встав на эту клетку последним ходом туриста. (перед тем как встать на квадрат, у туриста должен оставаться один ход)");
+					showH("Освободи меня!","red");
 			if(!tourView==""){
 							
 									$('#playStart .tourWrapper.active .tour[data-view="'+tourView+'"]').addClass('active');
@@ -516,7 +549,8 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 
 					if (stepcount == 0){
 						jailcount--;
-						$('#infogame h2').text('Ура! Вы освободили заключенного!');
+						//$('#infogame h2').text('Ура! Вы освободили заключенного!');
+						showH("Ура! Освобождение!","green");
 						console.log(tourView);
 						
 							$('#playStart .tourWrapper.active .tour.active').parent().css({left:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().left,top:$('#playStart .tourWrapper.active .tour.player-in-jail.player-in-jail-now').parent().position().top});
@@ -530,7 +564,13 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 						$('#playStart .tourWrapper .tour.active').click();
 						$('#playStart .tourWrapper .tour.active').parent().css('z-index',2);
 					}
+					else{
+						showH("Так осовободить нельзя!","red");
+					}
 
+				}
+				else{
+		
 				}
 				
 		})
@@ -539,18 +579,19 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-jail', 
 
 });
 $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-book', function () {
+	showH("Собери предложение!","yellow");
 	$('#playerTail .tourWrapper').remove();
 		$(this).parent().clone().appendTo('#playerTail');
 		$('#playStart .tourWrapper.active .tour').removeClass("active");
 				$(this).addClass("active");
 				if($(this).attr('data-step')==1){
-		        	playerInBook('Собрав правильно предложение, турист сможет сделать 1 шаг. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',1);
+		        	playerInBook('Собрав правильно предложение, турист сможет сделать дополнительные шаги. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',1,'Если турист попал на поле с цифрой, значит, собрав правильно предложение, турист сможет сделать дополнительные шаги. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"');
 		        }
 		        if($(this).attr('data-step')==2){
-		        	playerInBook('Собрав правильно предложение, турист сможет сделать 2 шага. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',2);
+		        	playerInBook('Собрав правильно предложение, турист сможет сделать дополнительные шаги. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',2,'Если турист попал на поле с цифрой, значит, собрав правильно предложение, турист сможет сделать дополнительные шаги. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"');
 		        }
 		        if($(this).attr('data-step')==3){
-		        	playerInBook('Собрав правильно предложение, турист сможет сделать 3 шага. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',3);
+		        	playerInBook('Собрав правильно предложение, турист сможет сделать дополнительные шаги. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',3,'Если турист попал на поле с цифрой, значит, собрав правильно предложение, турист сможет сделать дополнительные шаги. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"');
 		        }
 		        //$('#playStart .tourWrapper.active .tour').removeClass("active");
 				$('#inCountry .tourWrapper.active .tour').removeClass("active");
@@ -601,7 +642,7 @@ $(document).on('click ', '#formDeck:not(.inTask) .swiper-wrapper .swiper-slide',
 					$(this).find(".hier-text").text(allHier[hier][indextext]);
 				});
 	 $("#myModal .modal-body .hier-hint").text(allHier[hier].hint);
-	$("#myModal .modal-body audio").attr("src","audio/"+hier+".mp3");
+	$("#myModal .modal-body audio").attr("src","audio/"+hier+".wav");
 	hierAudio = document.getElementById("hier-audio");
 	
 });
@@ -633,15 +674,19 @@ $(document).on('click ', '#button-check', function () {
 				});
 			if(count>=1){
 						$('#infogame h2').text('Вы собрали не все предложение! Жмите на карты в своей колоде, чтобы собрать его.');
+							showH("Собрано не все!","red");
 					}
 			else{
 				$("#infogame .infogame-task .task-card .swiper-slide").each(function () {
 						answer = answer + $(this).attr('data-val');
 				});
 				if (answer==$(this).attr('data-check')){
-					$('#infogame h2').text('Поздравлем! Предложение собрано верно. Если хотите его прослушать, жмите ПРОСЛУШАТЬ. Или выходите из задания.');
+					//$('#infogame h2').text('');
+					modalWithBut("Поздравляем! Предложение собрано верно. Если хотите его прослушать, жмите ПРОСЛУШАТЬ. Или выходите из задания.","complite","После успешного составления предложения ваш турист получает дополнительные шаги. Вы можете прослушать предложение или выходить из задания.");
+					showH("+"+$('#playStart .tourWrapper.active .tour.active').attr("data-step"),"green");
 					$('#playStart .tourWrapper.active .tour.active').removeClass('player-in-book');
 					$('#playStart .tourWrapper.active .tour.active').click();
+					$('#playStart .tourWrapper.active .tour.active').attr("data-task","");
 					$('#playStart .tourWrapper.active .tour.active span').text("+"+$('#playStart .tourWrapper.active .tour.active').attr("data-step"));
 					var lisBut = $('<button type="button" id="button-lis">');
 						lisBut.text("Прослушать");
@@ -649,7 +694,9 @@ $(document).on('click ', '#button-check', function () {
 						lisBut.appendTo('#infogame .infogame-task');
 				}
 				else{
-					$('#infogame h2').text('Предложение собрано неверно! Выходите из задания.');
+					//$('#infogame h2').text('Предложение собрано неверно! Выходите из задания.');
+					modalWithBut("Предложение собрано неверно! Выходите из задания.","not-complite","Если предложение собрано неверно, вы можете только выйти из задания.");
+					showH("Неверно!","red");
 				}
 			}
 			
@@ -658,6 +705,10 @@ $(document).on('click ', '#button-check', function () {
  if (width < 1000 ) {
 $('head meta[name="viewport"]').attr('content','width=700px;initial-scale=1; minimum-scale=1; maximum-scale=1;user-scalable=no;');
  }
+
+
+    
+
 })
     
 
@@ -686,18 +737,37 @@ function playAudio2() {
 				 $('.wrapper .cat-loader').addClass("disCat");
 				}
 } 
-
+function showH(text,color) {
+		$('#infogame h2').text(text);	
+		$('#infogame h2').addClass(color);	
+		setTimeout(function() {	$('#infogame h2').removeAttr("class");
+								}, 1100); 
+}
+function modalWithBut(text,classname,text2) {
+	if(!$('#modal-regul .modal-body .item-regul').hasClass(classname)){
+		$('#modal-with-but .body-text').text(text);
+		$('#modal-with-but').modal('show'); 
+		var itemRegul = $('<div class="item-regul">');
+		itemRegul.text(text2);
+		itemRegul.addClass(classname);
+		itemRegul.appendTo('#modal-regul .modal-body');
+	}
+}
 function openFormDeck() { 
-    $('#formDeck').removeClass("formDeckDis");
-    $('#formTakeCard').addClass("formTakeCardDis");
+    
     if($('#formDeck .swiper-wrapper').children().length==0){
-    	$('#infogame h2').text('У вас пока что нет ни одной карты с иероглифом. Возьмите свою первую карту!');
+    	//$('#infogame h2').text('У вас пока что нет ни одной карты с иероглифом. Возьмите свою первую карту!');
+    	showH("Возьмите карту!","red");
     }
     else{
     	$('#infogame h2').text('Кликните по карте, чтобы изучить подробную информацию об иероглифе!');
+    	modalWithBut("Кликните по карте, чтобы изучить подробную информацию об иероглифе!","click-card","Если кликнуть по карте в колоде, можно изучить иероглиф подробно.");
+    	$('#formDeck').removeClass("formDeckDis");
+    $('#formTakeCard').addClass("formTakeCardDis");
+    swiper1.update();
     }
     
-     swiper1.update();
+     
 
 } 
 

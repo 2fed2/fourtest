@@ -144,8 +144,37 @@ opacity: 0.5;
   color: #fff;
 }
 #infogame h2{
-     max-height: 150px;
-    overflow: auto;
+        position: fixed;
+    padding: 10px;
+    background-color: rgba(0,0,0,0);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+  visibility:  hidden;
+  transition: 1s all;
+  z-index: 10;
+  top: 50px;
+  color: rgba(0,0,0,0);
+
+}
+
+#infogame h2.red {
+ visibility:  visible;
+  color: red;
+  background-color: rgba(0,0,0,0.8);
+  border: 2px solid red;
+}
+#infogame h2.green {
+ visibility:  visible;
+  color: green;
+  background-color: rgba(0,0,0,0.8);
+  border: 2px solid green;
+}
+#infogame h2.yellow {
+ visibility:  visible;
+  color: yellow;
+  background-color: rgba(0,0,0,0.8);
+  border: 2px solid yellow;
 }
 #infogame .infogame-but button{
   font-size: 20px;
@@ -155,6 +184,10 @@ border-radius: 10px;
  background: green;
  color:#fff;
   transition: 1s all;
+}
+
+.item-regul:not(:last-child){
+  margin-bottom: 10px;
 }
 button.button-hidden{
   pointer-events: none;
@@ -380,7 +413,7 @@ border-radius: 10px;
 }
 #takeCard button{
 font-size: 20px;
-width: 100%;
+width: 49%;
 height: 100px;
 border-radius: 10px;
  background: green;
@@ -471,7 +504,9 @@ background: red;
     text-align: center;
 }
 
-#myModal .btn-default {
+#myModal .btn-default,
+#modal-regul .btn-default,
+#modal-with-but .btn-default{
     color: #fff!important;
     background-color: red!important;
     text-transform: uppercase;
@@ -510,7 +545,9 @@ background: red;
        text-align: center;
     font-size: 50px;
 }
-#myModal .modal-body .hier-body{
+#myModal .modal-body .hier-body,
+#modal-regul .modal-body,
+#modal-with-but .modal-body{
     font-size: 25px;
 }
 #myModal .modal-body .hier-hint{
