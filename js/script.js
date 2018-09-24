@@ -27,17 +27,65 @@ jQuery(document).ready(function($) {
 
 
 	var threeArray = [
-			["Я люблю тебя.",3,123],
-			["Я люблю тебя?",4,1234]
+			["Кто любит нас?",4,"15x2x1x14x"],
+			["Он тебя любит?",4,"6x2x3x4x"],
+			["Спасибо вам",4,"13x13x3x14x"],
+			["Твое хобби",4,"3x7x2x11x"],
+			["Ты любишь поесть?",4,"3x2x10x4x"],
+			["Ты меня любишь?",4,"3x2x1x4x"],
+			["Чья еда?",4,"15x7x10x7x"],
+			["Я не хочу кушать",4,"1x9x5x10x"],
+			["Я очень по тебе скучаю",4,"1x12x5x3x"],
+			["Я тоже не буду кушать",4,"1x8x9x10x"],
+			["Я тоже тебя люблю",4,"1x8x2x3x"]
+		];
+		var twoArray = [
+			["Ваш",3,"3x14x7x"],
+			["Здравствуйте",3,"3x14x11x"],
+			["Их",3,"6x14x7x"],
+			["Как дела?",3,"3x11x4x"],
+			["Кого он любит?",3,"6x2x15x"],
+			["Кто хочет кушать?",3,"15x5x10x"],
+			["Любишь не любишь?",3,"2x9x2x"],
+			["Наш",3,"1x14x7x"],
+			["Спасибо тебе",3,"13x13x3x"],
+			["Чья любовь?",3,"15x7x2x"],
+			["Я люблю поесть",3,"1x2x10x"],
+			["Я не люблю",3,"1x9x2x"],
+			["Я не хочу",3,"1x9x5x"],
+			["Я тебя люблю",3,"1x2x3x"],
+			["Я тоже кушаю",3,"1x8x10x"],
+			["Я тоже хочу",3,"1x8x5x"]
+
+
+		];
+		var oneArray = [
+			["Вкусно",2,"11x10x"],
+			["Вы",2,"3x14x"],
+			["Его",2,"6x7x"],
+			["Еда",2,"10x7x"],
+			["Мой",2,"1x7x"],
+			["Мы (нас, нам)",2,"1x14x"],
+			["Не благодарите",2,"9x13x"],
+			["Не буду кушать",2,"9x10x"],
+			["Он хочет",2,"6x5x"],
+			["Они, их, им",2,"6x14x"],
+			["Плохо",2,"9x11x"],
+			["Привет",2,"3x11x"],
+			["Приятного аппетита",2,"10x11x"],
+			["Спасибо",2,"13x13x"],
+			["Твой",2,"3x7x"],
+			["Увлечение, хобби",2,"2x11x"],
+			["Чей (чьё, чья)",2,"15x7x"]
 		];
 	var threeArrayRand = threeArray.slice().sort(compareRandom);
+	var twoArrayRand = twoArray.slice().sort(compareRandom);
+	var oneArrayRand = oneArray.slice().sort(compareRandom);
 
-
-	var arr = [1, 2, 3, 4, 5];
-	function compareRandom(a, b) {
-	  return Math.random() - 0.5;
-	}
-	arr.sort(compareRandom);
+function compareRandom(a, b) {
+  return Math.random() - 0.5;
+}
+	
 	
 
 	var classTail = [];
@@ -164,7 +212,28 @@ function playerInBook(text,count,text2) {
 		        		$('#playStart .tourWrapper.active .tour.active').attr('data-task',task[0]);
 		        		$('#playStart .tourWrapper.active .tour.active').attr('data-task-count',task[1]);
 		        		threeArrayRand.splice(0, 1);
-		        		console.log( threeArray);
+		        	}
+		        	if(count==2*1){
+	        			if(twoArrayRand.length == 0){
+	        				twoArrayRand = twoArray.slice().sort(compareRandom);
+	        				console.log( twoArrayRand);
+	        			}
+	        			 modalWithBut(text,"player-in-book-3",text2)
+		        		var task =	twoArrayRand[0];
+		        		$('#playStart .tourWrapper.active .tour.active').attr('data-task',task[0]);
+		        		$('#playStart .tourWrapper.active .tour.active').attr('data-task-count',task[1]);
+		        		twoArrayRand.splice(0, 1);
+		        	}
+		        	if(count==1*1){
+	        			if(oneArrayRand.length == 0){
+	        				oneArrayRand = oneArray.slice().sort(compareRandom);
+	        				console.log( oneArrayRand);
+	        			}
+	        			 modalWithBut(text,"player-in-book-3",text2)
+		        		var task =	oneArrayRand[0];
+		        		$('#playStart .tourWrapper.active .tour.active').attr('data-task',task[0]);
+		        		$('#playStart .tourWrapper.active .tour.active').attr('data-task-count',task[1]);
+		        		oneArrayRand.splice(0, 1);
 		        	}
 	        	}
 	        	buttonCostruct.attr('data-task',$('#playStart .tourWrapper.active .tour.active').attr('data-task'));
@@ -193,11 +262,28 @@ $(document).on('click ', '#button-construct', function () {
 							taskText.text($(this).attr("data-task"));
 							taskText.appendTo('#infogame .infogame-task');
 							var valCheck;
+							if($(this).attr("data-step")==3){
 								for (var i = 0; i < threeArray.length; i++) {
 								    if (threeArray[i][0]==$(this).attr("data-task")){
 								    	valCheck=threeArray[i][2];
 								    }
 								}
+							}
+							if($(this).attr("data-step")==2){
+								for (var i = 0; i < twoArray.length; i++) {
+								    if (twoArray[i][0]==$(this).attr("data-task")){
+								    	valCheck=twoArray[i][2];
+								    }
+								}
+							}
+							if($(this).attr("data-step")==1){
+								for (var i = 0; i < oneArray.length; i++) {
+								    if (oneArray[i][0]==$(this).attr("data-task")){
+								    	valCheck=oneArray[i][2];
+								    }
+								}
+							}
+								
 								buttonCheck.attr('data-check',valCheck);
 								buttonCheck.attr('data-task-count',$(this).attr("data-task-count"));
 								var card = $('<div class="task-card empty">');
@@ -352,12 +438,12 @@ $('#playStart .tourWrapper.active .tour.active').find("span").text("+"+stepcount
 			$(this).addClass('turnover');
 	        $(this).addClass(classTail[$(this).parent().index()-1]);
 	        if($(this).hasClass("tail-one")){
-	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',3);
+	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',1);
 	        	$('#playStart .tourWrapper.active .tour.active').addClass("player-in-book");
 	        }
 	        if($(this).hasClass("tail-two")){
 	        	
-	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',3);
+	        	$('#playStart .tourWrapper.active .tour.active').attr('data-step',2);
 	        	$('#playStart .tourWrapper.active .tour.active').addClass("player-in-book");
 	        }
 	        if($(this).hasClass("tail-three")){
@@ -684,7 +770,7 @@ $(document).on('click ', '#button-check', function () {
 					}
 			else{
 				$("#infogame .infogame-task .task-card .swiper-slide").each(function () {
-						answer = answer + $(this).attr('data-val');
+						answer = answer + $(this).attr('data-val')+"x";
 				});
 				if (answer==$(this).attr('data-check')){
 					//$('#infogame h2').text('');
