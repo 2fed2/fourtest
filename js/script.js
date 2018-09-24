@@ -97,11 +97,26 @@ createTale(tailThree,'tail-three');
 createTale(tailJail,'tail-jail');
 
 
+function modalWithBut(text,classname,text2) {
+	if(!$('#modal-regul .modal-body .item-regul').hasClass(classname)){
+		$('#modal-with-but .body-text').text(text);
+		$('#modal-with-but').modal('show'); 
+		var itemRegul = $('<div class="item-regul">');
+		itemRegul.text(text2);
+		itemRegul.addClass(classname);
+		itemRegul.appendTo('#modal-regul .modal-body');
+	}
+}
+
+modalWithBut("Выберите стартовые позиции для 4 туристов и начните путешествие! (кликнуть по желтым квадратам)","before-start","Игра начинает с выбора стартовых позиций для туриста. Для этого нужно кликать по желтым квадратам.");
 
 
+<<<<<<< HEAD
 modalWithBut("Выберите стартовые позиции для 4 туристов и начните путешествие! (кликнуть по желтым квадратам)","before-start","Игра начинается с выбора стартовых позиций для туриста. Для этого нужно кликать по желтым квадратам.");
 
 
+=======
+>>>>>>> af825115efaf7560895f292548ebe600d73002da
 
 function startPosTour() {
 var buttonStart = $('<button type="button" class="button-hidden" id="button-start">');
@@ -233,7 +248,12 @@ $(document).on('click ', '#button-exitTask', function () {
 			$('#infogame h2').text('');
 	    });	
 
-
+function showH(text,color) {
+		$('#infogame h2').text(text);	
+		$('#infogame h2').addClass(color);	
+		setTimeout(function() {	$('#infogame h2').removeAttr("class");
+								}, 1100); 
+}
 
 
 $(document).on('click ', '.tail-start', function () {
@@ -591,7 +611,11 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-book', 
 		        	playerInBook('Собрав правильно предложение, турист сможет сделать дополнительные шаги. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',2,'Если турист попал на поле с цифрой, значит, собрав правильно предложение, турист сможет сделать дополнительные шаги. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"');
 		        }
 		        if($(this).attr('data-step')==3){
+<<<<<<< HEAD
 		        	playerInBook('Собрав правильно предложение, турист сможет сделать дополнительные шаги. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',3,'Если турист попал на поле с цифрой, значит, собрав правильно предложение, турист сможет сделать дополнительные шаги. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"');
+=======
+		        	playerInBook('Собрав правильно предложение, турист сможет сделать 3 шага. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"',3,'Если турист попал на поле с цифрой 3, значит, собрав правильно предложение, турист сможет сделать 3 шага. Чтобы начать собирать предложение, нужно кликнуть по кнопке "СОБРАТЬ ПРЕДЛОЖЕНИЕ"');
+>>>>>>> af825115efaf7560895f292548ebe600d73002da
 		        }
 		        //$('#playStart .tourWrapper.active .tour').removeClass("active");
 				$('#inCountry .tourWrapper.active .tour').removeClass("active");
@@ -674,7 +698,11 @@ $(document).on('click ', '#button-check', function () {
 				});
 			if(count>=1){
 						$('#infogame h2').text('Вы собрали не все предложение! Жмите на карты в своей колоде, чтобы собрать его.');
+<<<<<<< HEAD
 							showH("Собрано не все!","red");
+=======
+
+>>>>>>> af825115efaf7560895f292548ebe600d73002da
 					}
 			else{
 				$("#infogame .infogame-task .task-card .swiper-slide").each(function () {
