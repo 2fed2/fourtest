@@ -708,7 +708,7 @@ $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function
 	$("#formTakeCard .swiper-wrapper .swiper-slide.remove-now").remove();
 	swiper2.update();
 		if($("#formTakeCard .swiper-wrapper").children().length==0){
-			$("#takeCard").addClass("takeCardDis");
+			//$("#takeCard").addClass("takeCardDis");
 			$("#formTakeCard").addClass("formTakeCardDis");
 		}
 	}, 350); 
