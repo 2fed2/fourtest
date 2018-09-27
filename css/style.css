@@ -515,7 +515,8 @@ background: red;
 
 #myModal .btn-default,
 #modal-regul .btn-default,
-#modal-with-but .btn-default{
+#modal-with-but .btn-default,
+#myMetod .btn-default{
     color: #fff!important;
     background-color: red!important;
     text-transform: uppercase;
