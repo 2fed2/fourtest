@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
 	}
 	var aiArray = {head: "爱",trans: "Любить",transcrip: "ài",headhier1: "爫",texthier1: " - когти [zhǎo]",headhier2: "又",texthier2: " - опять [yòu]",headhier3: "一",texthier3: " - единица [yī]",headhier4: "冖",texthier4: " - крышка [mì]",headhier5: "丿",texthier5: " - линия без перевода",hint: "Опять вцепился	когтями в сердце."};
 	var xiangArray = {head: "想",trans: "Думать, скучать, хотеть",transcrip: "xiǎng",headhier1: "木",texthier1: " - дерево [mù]",headhier2: "目",texthier2: " - глаз [mù]",headhier3: "心",texthier3: " - сердце [xīn]",hint: "Глаз дерева думает сердцем."};
-	var woArray = {head: "我",trans: "Я (меня, мне)",transcrip: "wǒ",headhier1: "扌",texthier1: " - рука [shǒu]",headhier2: "戈",texthier2: " - копьё [gē]",hint: "Я держу в руке копьё."};
+	var woArray = {head: "我",trans: "Я (меня, мне)",transcrip: "wǒ",headhier1: "手",texthier1: " - рука [shǒu]",headhier2: "戈",texthier2: " - копьё [gē]",hint: "Я держу в руке копьё."};
 	var niArray = {head: "你",trans: "Ты (тебя, тебе)",transcrip: "nǐ",headhier1: "亻",texthier1: " - человек [rén]",headhier2: "冖",texthier2: " - крышка [mì]",headhier3: "小",texthier3: " - маленький[xiǎo]",hint: "Ты не просто маленький человек под крышкой."};
 	var taArray = {head: "他",trans: "Он (его, ему)",transcrip: "tā",headhier1: "亻",texthier1: " - человек [rén]",headhier2: "也",texthier2: " - тоже [yě]",hint: "Он тоже человек."};
 	var deArray = {head: "的",trans: "Притяжательный суффикс",transcrip: "de",headhier1: "白",texthier1: " - белый [bái]",headhier2: "勺",texthier2: " - ложка [sháo]",hint: "Ложка притягивает белый рис."};
@@ -657,7 +657,7 @@ modalWithBut("Из тюрьмы можно освободить, только в
 						$('#playStart .tourWrapper .tour.active').parent().css('z-index',2);
 					}
 					else{
-						showH("Так осовободить нельзя!","red");
+						showH("Освободить можно последним шагом!","red");
 					}
 
 				}
@@ -700,7 +700,7 @@ $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function
 	
 	$(this).addClass('remove-now');
 	$(this).css('background','none');
-
+$(this).css('pointer-events','none');
 	setTimeout(function() {
 	$("#formTakeCard .swiper-wrapper").removeAttr('style');
 	$("#formTakeCard .swiper-wrapper .swiper-slide").removeAttr('data-swiper-column');
@@ -723,7 +723,11 @@ $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function
 
 $(document).on('click ', '#formDeck:not(.inTask) .swiper-wrapper .swiper-slide', function () {
 	var hier = $(this).attr("data-hierog");
-
+ $("#myModal .modal-body .hier-body .hier").each(function () {
+					
+					$(this).find(".hier-head").text("");
+					$(this).find(".hier-text").text("");
+				});
 	$("#myModal .modal-body .hier-header").text(allHier[hier].head);
 	$("#myModal .modal-body .hier-trans").text(allHier[hier].trans);
 	$("#myModal .modal-body .hier-transcrip").text(allHier[hier].transcrip);
@@ -777,7 +781,7 @@ $(document).on('click ', '#button-check', function () {
 				if (answer==$(this).attr('data-check')){
 					//$('#infogame h2').text('');
 					modalWithBut("Поздравляем! Предложение собрано верно. Если хотите его прослушать, жмите ПРОСЛУШАТЬ. Или выходите из задания.","complite","После успешного составления предложения ваш турист получает дополнительные шаги. Вы можете прослушать предложение или выходить из задания.");
-					showH("+"+$('#playStart .tourWrapper.active .tour.active').attr("data-step"),"green");
+					showH("Поздравляем! +"+$('#playStart .tourWrapper.active .tour.active').attr("data-step"),"green");
 					$('#playStart .tourWrapper.active .tour.active').removeClass('player-in-book');
 					$('#playStart .tourWrapper.active .tour.active').click();
 					$('#playStart .tourWrapper.active .tour.active').attr("data-task","");
