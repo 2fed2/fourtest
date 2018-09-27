@@ -930,9 +930,7 @@ function playAudioPhrase(count) {
 						hierAudio2.oncanplaythrough = function() {
 					           $('.wrapper .cat-loader').addClass("disCat");
 					      };
-							 hierAudio2.onended = function() {
-								$('.wrapper .cat-loader').removeClass("disCat");
-							};
+							
 					};
 			hierAudio1.oncanplaythrough = function() {
 		           $('.wrapper .cat-loader').addClass("disCat");
