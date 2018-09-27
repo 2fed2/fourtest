@@ -691,8 +691,9 @@ $(document).on('click ', '#playStart .tourWrapper.active .tour.player-in-book', 
 
 $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function () {
 	var hier = $(this).attr("data-hierog");
+	var part = $(this).attr("data-part");
 	var valHier = $(this).attr("data-val");
-	var card = $('<div class="swiper-slide"  data-toggle="modal" data-target="#myModal" type="button" data-hierog="'+hier+'" data-val="'+valHier+'">');
+	var card = $('<div class="swiper-slide"  data-toggle="modal" data-target="#myModal" type="button" data-part="'+part+'" data-hierog="'+hier+'" data-val="'+valHier+'">');
 	card.text($(this).text());
 	card.appendTo($("#formDeck .swiper-wrapper"));
 	//$(this).parent().css("margin-top",-60);
@@ -722,6 +723,7 @@ $(document).on('click ', '#formTakeCard .swiper-wrapper .swiper-slide', function
 
 $(document).on('click ', '#formDeck:not(.inTask) .swiper-wrapper .swiper-slide', function () {
 	var hier = $(this).attr("data-hierog");
+
 	$("#myModal .modal-body .hier-header").text(allHier[hier].head);
 	$("#myModal .modal-body .hier-trans").text(allHier[hier].trans);
 	$("#myModal .modal-body .hier-transcrip").text(allHier[hier].transcrip);
@@ -885,7 +887,6 @@ function playAudioPhrase(count) {
 			var hierAudio1 = document.getElementById("hier-audio1"); 
 			var hierAudio2 = document.getElementById("hier-audio2"); 
 			var hierAudio3 = document.getElementById("hier-audio3"); 
-			var hierAudio4 = document.getElementById("hier-audio4");  
 			$('.wrapper .cat-loader').removeClass("disCat");
 			hierAudio1.load();
 			hierAudio2.load();
@@ -905,6 +906,28 @@ function playAudioPhrase(count) {
 								hierAudio3.oncanplaythrough = function() {
 							           $('.wrapper .cat-loader').addClass("disCat");
 							      };
+							};
+					};
+			hierAudio1.oncanplaythrough = function() {
+		           $('.wrapper .cat-loader').addClass("disCat");
+		      };
+	}
+	if (count == 2){
+			var hierAudio1 = document.getElementById("hier-audio1"); 
+			var hierAudio2 = document.getElementById("hier-audio2");   
+			$('.wrapper .cat-loader').removeClass("disCat");
+			hierAudio1.load();
+			hierAudio2.load();
+			hierAudio1.play();
+					hierAudio1.onended = function() {
+						$('.wrapper .cat-loader').removeClass("disCat");
+						hierAudio2.load();
+						hierAudio2.play();
+						hierAudio2.oncanplaythrough = function() {
+					           $('.wrapper .cat-loader').addClass("disCat");
+					      };
+							 hierAudio2.onended = function() {
+								$('.wrapper .cat-loader').removeClass("disCat");
 							};
 					};
 			hierAudio1.oncanplaythrough = function() {

@@ -96,10 +96,9 @@
 
 						  <div class="swiper-button-next"></div>
     					<div class="swiper-button-prev"></div>
-
-						  
-
+					<button class="metod" type="button"  data-toggle="modal" data-target="#myMetod" >Методичка</button>
 					<button  onclick="closeFormDeck()" type="button">Закрыть</button>
+					
 				</div>
 
 			</div>
@@ -113,21 +112,21 @@
 					<div id="formTakeCard" class="formTakeCardDis">
 					 <div class="swiper-container">
 						    <div class="swiper-wrapper">
-						      <div class="swiper-slide" data-hierog="ai" data-val="2">爱</div>
-						      <div class="swiper-slide" data-hierog="xiang" data-val="5">想</div>
-						      <div class="swiper-slide" data-hierog="wo" data-val="1">我</div>
-						      <div class="swiper-slide" data-hierog="ni" data-val="3">你</div>
-						      <div class="swiper-slide" data-hierog="ta" data-val="6">他</div>
-						      <div class="swiper-slide" data-hierog="de" data-val="7">的</div>
-						      <div class="swiper-slide" data-hierog="ma" data-val="4">吗</div>
-						      <div class="swiper-slide" data-hierog="ye" data-val="8">也</div>
-						      <div class="swiper-slide" data-hierog="bu" data-val="9">不</div>
-						      <div class="swiper-slide" data-hierog="chi" data-val="10">吃</div>
-						      <div class="swiper-slide" data-hierog="hao" data-val="11">好</div>
-						      <div class="swiper-slide" data-hierog="hen" data-val="12">很</div>
-						      <div class="swiper-slide" data-hierog="xie" data-val="13">谢</div>
-						      <div class="swiper-slide" data-hierog="men" data-val="14">们</div>
-						      <div class="swiper-slide" data-hierog="shei" data-val="15">谁</div>
+						      <div class="swiper-slide" data-part="verb" data-hierog="ai" data-val="2">爱</div>
+						      <div class="swiper-slide" data-part="verb"  data-hierog="xiang" data-val="5">想</div>
+						      <div class="swiper-slide" data-part="pronoun"  data-hierog="wo" data-val="1">我</div>
+						      <div class="swiper-slide" data-part="pronoun"  data-hierog="ni" data-val="3">你</div>
+						      <div class="swiper-slide" data-part="pronoun"  data-hierog="ta" data-val="6">他</div>
+						      <div class="swiper-slide" data-part="suffix" data-hierog="de" data-val="7">的</div>
+						      <div class="swiper-slide" data-part="particle"  data-hierog="ma" data-val="4">吗</div>
+						      <div class="swiper-slide" data-part="adverb"  data-hierog="ye" data-val="8">也</div>
+						      <div class="swiper-slide" data-part="particle"  data-hierog="bu" data-val="9">不</div>
+						      <div class="swiper-slide" data-part="verb"  data-hierog="chi" data-val="10">吃</div>
+						      <div class="swiper-slide" data-part="adverb"  data-hierog="hao" data-val="11">好</div>
+						      <div class="swiper-slide" data-part="adverb"  data-hierog="hen" data-val="12">很</div>
+						      <div class="swiper-slide" data-part="verb"  data-hierog="xie" data-val="13">谢</div>
+						      <div class="swiper-slide" data-part="suffix"  data-hierog="men" data-val="14">们</div>
+						      <div class="swiper-slide" data-part="pronoun"  data-hierog="shei" data-val="15">谁</div>
 
 						    </div>
 						    
@@ -231,6 +230,21 @@
   </div>
 </div>
 
+<div class="modal fade" id="myMetod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <img src="img/metod.jpg" alt="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
 		
 		<script src="js/swiper.min.js" type="text/javascript"></script>
 		<script src="js/script.js" type="text/javascript"></script>

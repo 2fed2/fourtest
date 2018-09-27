@@ -433,6 +433,14 @@ border-radius: 10px;
     background-color: red;
 
 }
+#myMetod .modal-body img{
+width: 100%;
+}
+#formDeck button.metod{
+      background: green;
+    right: auto;
+    left: 15px;
+}
 #formDeck,
 #formTakeCard{
       position: absolute;
@@ -530,8 +538,23 @@ background: red;
   border-radius: 20px;
   transition:0.3s background; 
       font-size: 100px;
+      color:#fff;
  }
-
+ .swiper-wrapper .swiper-slide[data-part="verb"]{
+background-color: blue;
+ }
+ .swiper-wrapper .swiper-slide[data-part="pronoun"]{
+background-color: green;
+ }
+ .swiper-wrapper .swiper-slide[data-part="suffix"]{
+background-color: red;
+ }
+ .swiper-wrapper .swiper-slide[data-part="adverb"]{
+background-color: yellow;
+ }
+ .swiper-wrapper .swiper-slide[data-part="particle"]{
+background-color: purple;
+ }
 #myModal .modal-body .hier-header{
       text-align: center;
     font-size: 80px;
